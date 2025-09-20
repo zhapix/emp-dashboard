@@ -5,7 +5,7 @@ import './Dashboard.css';
 const Card = ({ title, link, arrowText }) => {
     return (
         <div className="card">
-            <a href={link} className="card-link">{title}</a>
+            <a href={link} target='_blank' className="card-link">{title}</a>
             {/* Conditionally renders the arrow and text if the prop exists */}
             {arrowText && <span className="arrow">{arrowText} ➡️</span>}
         </div>
@@ -29,4 +29,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Dashboard; 
