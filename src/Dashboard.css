@@ -88,7 +88,7 @@ body {
 =========================== */
 .card {
   background-color: var(--card-bg);  /* solid dark background */
-  padding: 50px 30px;
+  padding: 40px 20px;
   border-radius: 12px;
   text-align: center;
   font-size: 1.2em;
