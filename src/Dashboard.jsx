@@ -36,7 +36,7 @@ const Dashboard = () => {
       </header>
 
       <main className="dashboard-grid">
-        <Card title="Zhapix site" link="https://www.zhapix.com/" />
+        <Card title="Zhapix Site" link="https://www.zhapix.com/" />
         <Card title="Email" link="https://www.zoho.com/mail" />
         <Card title="Docs" link="https://workdrive.zoho.in/" />
         <Card title="GitHub" link="https://github.com/zhapix-coe/" />
