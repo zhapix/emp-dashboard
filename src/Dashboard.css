@@ -43,8 +43,8 @@ body {
    Dashboard Container
 =========================== */
 .dashboard-container {
-  width: 95%;
-  max-width: 1100px;
+  width: 1200px;
+  max-width: 100%;
   background-color: var(--inside-bg); /* inside background */
   padding: 50px;
   border-radius: 16px;
@@ -79,7 +79,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  margin: 20px;
+  margin: 10px;
 
 }
 
@@ -88,15 +88,16 @@ body {
 =========================== */
 .card {
   background-color: var(--card-bg);  /* solid dark background */
-  padding: 40px 20px;
+  padding: 20px 20px;
   border-radius: 12px;
   text-align: center;
   font-size: 1.2em;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--text-color);
   border: 2px solid var(--card-border); /* olive green border */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+  max-width: 250px;
   cursor: pointer;
 }
 
@@ -140,4 +141,4 @@ body {
   background: #3d9970;
   color: #fff;
   border-color: #3d9970;
-}
+} 
