@@ -1,144 +1,122 @@
-/* ===========================
-   Theme Variables
-=========================== */
-:root {
-  --outside-bg: #0f172a;   /* outside page background */
-  --inside-bg: #1f2937;    /* dashboard container background */
-  --card-bg: #334155;      /* solid dark card background */
-  --card-border: #3d9970;  /* olive green border */
-  --text-color: #f9fafb;   /* light text */
-}
-
-.dark {
-  --outside-bg: #0b1120;   /* darker outside */
-  --inside-bg: #1e293b;    /* slightly lighter inside */
-  --card-bg: #374151;      /* dark mode cards */
-  --card-border: #3d9970;  /* accent stays */
-  --text-color: #f9fafb;
-}
-
-/* ===========================
-   Base Styles
-=========================== */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* Dashboard.css */
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--outside-bg); /* outside background */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  margin: 0;
-  padding-top: 60px; /* margin from top */
-  color: var(--text-color);
-  transition: background 0.3s, color 0.3s;
+  background-color: #2f3e4e;
+  color: #fff;
+  margin: 20px;
+  padding: 5px;
+  font-size: 1.50em;
 }
 
-/* ===========================
-   Dashboard Container
-=========================== */
+body.dark {
+  background-color: #1e293b;
+  color: #cbd5e1;
+}
+
 .dashboard-container {
-  width: 1200px;
-  max-width: 100%;
-  background-color: var(--inside-bg); /* inside background */
-  padding: 50px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #324155;
+  border-radius: 12px;
+  min-height: 40px; /* Increased height */
 }
 
-/* ===========================
-   Header
-=========================== */
+
 .dashboard-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 5px;
-  margin-bottom: 5px;
+  border-bottom: 1px solid #4a4a4a;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
 }
 
-.dashboard-header h1 {
-  font-size: 2em;
-  font-weight: 700;
-  margin: 15px;
-  padding: 15px;
-  color: var(--text-color);
-  
-}
-
-/* ===========================
-   Grid Layout
-=========================== */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin: 10px;
-
+  gap: 0px;
 }
 
-/* ===========================
-   Card Styles
-=========================== */
 .card {
-  background-color: var(--card-bg);  /* solid dark background */
-  padding: 20px 20px;
+  background-color: #2f3e4e;
+  border: 1px solid #4caf50;
   border-radius: 12px;
-  text-align: center;
-  font-size: 1.2em;
-  font-weight: 300;
-  color: var(--text-color);
-  border: 2px solid var(--card-border); /* olive green border */
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
-  max-width: 250px;
+  padding: 40px;
+  margin: 40px;
+  min-height: 46px;
   cursor: pointer;
+
+  display: flex;
+  flex-direction: row;       /* <-- important change */
+  align-items: center;       /* vertically center icon + text */
+                   /* space between icon and text */
+
+
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;          /* text aligns nicely beside icon */
+}
+
+.card-icon {
+  font-size: 7em;
+  color: #f7f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  border-color: #2ecc71; /* brighter green on hover */
+  background-color: #40603f;
+  box-shadow: 0 0 10px #4caf50;
 }
+
 
 .card-link {
+  font-size: 14px;
+  color: #d4f5d4;
   text-decoration: none;
-  color: inherit;
-  display: block;
-  outline: none;
+  font-weight: 500;
 }
 
-.card-link:focus {
-  outline: none;
-  box-shadow: none;
+.card-link:hover {
+  text-decoration: underline;
 }
 
 
-.arrow {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.9rem;
-  color: #cbd5e1; /* softer gray text */
+/* Responsive layout for smaller screens */
+@media (max-width: 800px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-/* ===========================
-   Olive Green Toggle
-=========================== */
-.toggle-container {
+@media (max-width: 480px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-container {
+    margin: 20px;
+  }
+}
+.dashboard-logo {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
 }
 
+.logo-image {
+  height: 24px;
+  cursor: pointer;
+}
 
-
-.toggle.active {
-  background: #3d9970;
-  color: #fff;
-  border-color: #3d9970;
-} 
+.logo-text {
+  color: #eef3ee;
+  font-weight: 600;
+}

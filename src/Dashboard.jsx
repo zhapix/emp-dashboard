@@ -1,51 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Typography, Box } from '@mui/material';
+import {
+  ChatBubbleOutline,
+  EmailOutlined,
+  CloudUploadOutlined,
+  PeopleOutline,
+  MenuBookOutlined,
+  GitHub,
+} from '@mui/icons-material';
+
 import './Dashboard.css';
 
-const Card = ({ title, link, arrowText }) => {
+const Card = ({ title, link, icon }) => {
+  const handleClick = () => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+  };
+
   return (
-    <div className="card">
-      <a href={link} target="_blank" rel="noopener noreferrer" className="card-link">
+    <div className="card" onClick={handleClick}>
+      <Box className="card-icon">{icon}</Box>
+      <Typography variant="body1" className="card-text">
         {title}
-      </a>
-      {arrowText && <span className="arrow">{arrowText} ➡️</span>}
+      </Typography>
     </div>
   );
 };
 
 const Dashboard = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  }, [darkMode]);
+  const cards = [
+    { title: 'Chat', link: 'https://cliq.zoho.in/', icon: <ChatBubbleOutline fontSize="large" /> },
+    { title: 'Email', link: 'https://www.zoho.com/mail', icon: <EmailOutlined fontSize="large" /> },
+    { title: 'Drive', link: 'https://workdrive.zoho.in/', icon: <CloudUploadOutlined fontSize="large" /> },
+    { title: 'GitHub', link: 'https://github.com/zhapix-coe/', icon: <GitHub fontSize="large" /> },
+    { title: 'People', link: 'https://people.zoho.in/', icon: <PeopleOutline fontSize="large" /> },
+    { title: 'Learn', link: 'https://learn.zoho.in/', icon: <MenuBookOutlined fontSize="large" /> },
+  ];
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Dashboard</h1>
-
-        {/* Toggle Switch */}
-        <div
-          className={`toggle ${darkMode ? 'active' : ''}`}
-          onClick={() => setDarkMode(!darkMode)}
-        ></div>
+        <Typography variant="h5" component="h1" className="dashboard-title">
+          Dashboard
+        </Typography>
+        <Box className="dashboard-logo">
+          {/* Recommended: Added alt attribute for accessibility */}
+          <img src="/logo.png" alt="Zhapix Logo" className="logo-image" />
+          <Typography variant="body1" className="logo-text">zhapix</Typography>
+        </Box>
       </header>
 
       <main className="dashboard-grid">
-        <Card title="Zhapix Site" link="https://www.zhapix.com/" />
-        <Card title="Email" link="https://www.zoho.com/mail" />
-        <Card title="Docs" link="https://workdrive.zoho.in/" />
-        <Card title="GitHub" link="https://github.com/zhapix-coe/" />
-        <Card title="People" link="https://people.zoho.in/" />
-        <Card title="Chat" link="https://cliq.zoho.in/" />
-        <Card title="Learn" link="https://learn.zoho.in/" />
-        <Card title="Creator" link="https://creator.zoho.in/" />
-        <Card title="Sites" link="https://sites.zoho.in/" />
-        <Card title="Forms" link="https://forms.zoho.in/" />
+        {cards.map((card) => (
+          <Card key={card.title} {...card} />
+        ))}
       </main>
     </div>
   );
