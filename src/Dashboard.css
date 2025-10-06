@@ -27,7 +27,7 @@ body.dark {
 .dashboard-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  
   border-bottom: 1px solid #4a4a4a;
   padding-bottom: 12px;
   margin-bottom: 24px;
@@ -52,9 +52,8 @@ body.dark {
   flex-direction: row;       /* <-- important change */
   align-items: center;       /* vertically center icon + text */
                    /* space between icon and text */
-
-
-  font-size: 2rem;
+  justify-content: center;
+  font-size: 2.5rem;
   font-weight: 600;
   color: #ffffff;
 
@@ -69,6 +68,7 @@ body.dark {
   align-items: center;
   justify-content: center;
   min-width: 40px;
+  margin-right: 0.25rem;
 }
 
 .card:hover {
@@ -112,7 +112,7 @@ body.dark {
 }
 
 .logo-image {
-  height: 24px;
+  height: 2rem;
   cursor: pointer;
 }
 
