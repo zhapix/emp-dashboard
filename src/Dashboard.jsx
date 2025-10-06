@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, Box } from '@mui/material';
 import {
   ChatBubbleOutline,
@@ -16,6 +16,7 @@ const Card = ({ title, link, icon }) => {
     window.open(link, '_blank', 'noopener,noreferrer');
   };
 
+
   return (
     <div className="card" onClick={handleClick}>
       <Box className="card-icon">{icon}</Box>
@@ -27,6 +28,8 @@ const Card = ({ title, link, icon }) => {
 };
 
 const Dashboard = () => {
+  const [userEmail, setUserEmail] = useState('');
+
   const cards = [
     { title: 'Chat', link: 'https://cliq.zoho.in/', icon: <ChatBubbleOutline fontSize="large" /> },
     { title: 'Email', link: 'https://www.zoho.com/mail', icon: <EmailOutlined fontSize="large" /> },
@@ -36,13 +39,22 @@ const Dashboard = () => {
     { title: 'Learn', link: 'https://learn.zoho.in/', icon: <MenuBookOutlined fontSize="large" /> },
   ];
 
+  useEffect(()=>{
+    const searchParamVals = new URLSearchParams(window.location.search);
+    setUserEmail(searchParamVals.get('userEmail'));
+
+  })
+
+  
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <Typography variant="h5" component="h1" className="dashboard-title">
-          Dashboard
+          Dashboard {userEmail}
         </Typography>
         <Box className="dashboard-logo">
+          {/* Recommended: Added alt attribute for accessibility */}
           <img src="./logo.png" alt="Zhapix Logo" className="logo-image" />
           <Typography variant="h5" className="logo-text">zhapix</Typography>
         </Box>
