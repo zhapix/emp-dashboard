@@ -27,7 +27,7 @@ body.dark {
 .dashboard-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  
   border-bottom: 1px solid #4a4a4a;
   padding-bottom: 12px;
   margin-bottom: 24px;
@@ -43,18 +43,17 @@ body.dark {
   background-color: #2f3e4e;
   border: 1px solid #4caf50;
   border-radius: 12px;
-  padding: 40px;
+  padding: 20px;
   margin: 40px;
-  min-height: 46px;
+  min-height: 100px;
   cursor: pointer;
 
   display: flex;
   flex-direction: row;       /* <-- important change */
   align-items: center;       /* vertically center icon + text */
                    /* space between icon and text */
-
-
-  font-size: 2rem;
+  justify-content: center;
+  font-size: 2.5rem;
   font-weight: 600;
   color: #ffffff;
 
@@ -63,12 +62,13 @@ body.dark {
 }
 
 .card-icon {
-  font-size: 7em;
+  font-size: 20px;
   color: #f7f3f3;
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 40px;
+  margin-right: 0.25rem;
 }
 
 .card:hover {
@@ -112,7 +112,7 @@ body.dark {
 }
 
 .logo-image {
-  height: 24px;
+  height: 2rem;
   cursor: pointer;
 }
 

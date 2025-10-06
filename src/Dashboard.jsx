@@ -45,7 +45,7 @@ const Dashboard = () => {
         <Box className="dashboard-logo">
           {/* Recommended: Added alt attribute for accessibility */}
           <img src="/logo.png" alt="Zhapix Logo" className="logo-image" />
-          <Typography variant="body1" className="logo-text">zhapix</Typography>
+          <Typography variant="h5" className="logo-text">zhapix</Typography>
         </Box>
       </header>
 
