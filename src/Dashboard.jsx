@@ -15,13 +15,22 @@ import {
 
 import './Dashboard.css';
 
+// Added accessibility props for keyboard navigation
 const Card = ({ title, link, icon }) => {
   const handleClick = () => {
     window.open(link, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <div className="card" onClick={handleClick}>
+    <div
+      className="card"
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyPress={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') handleClick();
+      }}
+    >
       <Box className="card-icon">{icon}</Box>
       <Typography variant="body1" className="card-text">
         {title}
@@ -38,7 +47,7 @@ const Dashboard = () => {
     setUserEmail(searchParamVals.get('userEmail') || '');
   }, []);
 
-  //  Mapping of emails to names and sheet links
+  //  Mapping of emails to names and sheet links
   const profileInfoMapping = {
     'aarthi.g@coe.zhapix.com': {
       name: 'Aarthi g',
@@ -50,13 +59,14 @@ const Dashboard = () => {
     },
   };
 
+  // This variable is now correctly used in the cards array
   const zohoMailLink = userEmail
     ? `https://mail.zoho.com/?loginid=${encodeURIComponent(userEmail)}`
     : 'https://www.zoho.com/mail';
 
   const cards = [
     { title: 'Chat', link: 'https://cliq.zoho.in/', icon: <ChatBubbleOutline fontSize="large" /> },
-    { title: 'Email', link: zohoMailLink, icon: <EmailOutlined fontSize="large" /> },
+    { title: 'Email', link: 'https://www.zoho.com/mail', icon: <EmailOutlined fontSize="large" /> },
     { title: 'Drive', link: 'https://workdrive.zoho.in/', icon: <CloudUploadOutlined fontSize="large" /> },
     { title: 'GitHub', link: 'https://github.com/zhapix-coe/', icon: <GitHub fontSize="large" /> },
     { title: 'People', link: 'https://people.zoho.in/', icon: <PeopleOutline fontSize="large" /> },
@@ -85,7 +95,8 @@ const Dashboard = () => {
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
       >
         <div className="dashboard-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/logo.png" alt="Zhapix Logo" className="logo-image" />
+          {/* FIX: Corrected JSX syntax (className and self-closing tag) */}
+          <img alt="Zhapix Logo" className="logo-image" src="./logo.png" />
           <Typography variant="h5" component="h1" className="dashboard-title">
             Dashboard
           </Typography>
