@@ -30,6 +30,10 @@ const Card = ({ title, link, icon }) => {
 const Dashboard = () => {
   const [userEmail, setUserEmail] = useState('');
 
+  const profileUrlMapping = {
+    'aarthi.g@coe.zhapix.com': 'Aarthi Profile Link here',
+    'yogesh.b@coe.zhapix.com': 'Yogesh Profile Link here'
+  }
   const cards = [
     { title: 'Chat', link: 'https://cliq.zoho.in/', icon: <ChatBubbleOutline fontSize="large" /> },
     { title: 'Email', link: 'https://www.zoho.com/mail', icon: <EmailOutlined fontSize="large" /> },
@@ -51,7 +55,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <Typography variant="h5" component="h1" className="dashboard-title">
-          Dashboard {userEmail}
+          Dashboard - {userEmail} - {profileUrlMapping[userEmail]}
         </Typography>
         <Box className="dashboard-logo">
           {/* Recommended: Added alt attribute for accessibility */}
