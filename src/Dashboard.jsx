@@ -1,4 +1,4 @@
-// Dashboard.jsx - FINAL CORRECTED CODE
+// Dashboard.jsx - FINAL CORRECTED CODE with Photo URLs and Profile URL Passing
 import React, { useEffect, useState } from 'react';
 import {
     Typography,
@@ -14,9 +14,8 @@ import {
     GitHub,
 } from '@mui/icons-material';
 
-import './Dashboard.css'; 
-import EmployeeProfile from './EmployeeProfile'; 
-// import logo from './logo.png'; // Assuming you handle logo import/path correctly
+import './Dashboard.css';
+import EmployeeProfile from './EmployeeProfile';
 
 // Card Component (Unchanged)
 const Card = ({ title, link, icon }) => {
@@ -44,34 +43,49 @@ const Card = ({ title, link, icon }) => {
 
 const Dashboard = () => {
     const [userEmail, setUserEmail] = useState('');
-    const [selectedProfileEmail, setSelectedProfileEmail] = useState(null); 
+    const [selectedProfileEmail, setSelectedProfileEmail] = useState(null);
 
     useEffect(() => {
         const searchParamVals = new URLSearchParams(window.location.search);
         setUserEmail(searchParamVals.get('userEmail') || '');
     }, []);
 
-    // Mapping of emails to names (ALL KEYS MUST BE LOWERCASE)
+    // 🌟 MODIFIED MAPPING: Added avatarUrl for profile photos
+    // NOTE: '/SunithaChandai.jpeg' assumes the file is in your public folder.
     const profileInfoMapping = {
-        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal' }, // Lowercase key
-        'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B' },
-        'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda' },
-        'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu' },
-        'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi' },
-        'ronald.k@coe.zhapix.com':{ name: 'Ronald Kevin' },
-        'rudra.l@coe.zhapix.com':{ name: 'Rudramoorthy' },
-        'ashwathi.p@coe.zhapix.com':{ name: 'Ashwathi Palaniraj' },
-        'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar' },
+        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', 
+            avatarUrl: '/Aarthigopal.jpg' }, 
+        'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B', 
+            avatarUrl: '/yogesh.jpg' },
+        'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda',
+         avatarUrl: '/Sunitha.jpeg'}, 
+        'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu',
+             avatarUrl: '/vijayan.jpg' },
+        'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi', 
+            avatarUrl: '/Samruthha.png'},
+        'ronald.k@coe.zhapix.com':{ name: 'Ronald Kevin',
+             avatarUrl: '/Kevin.png' },
+        'rudra.l@coe.zhapix.com':{ name: 'Rudramoorthy',
+             avatarUrl:'/Rudra.png' },
+        'ashwathi.p@coe.zhapix.com':{ name: 'Ashwathi Palaniraj',
+             avatarUrl: '/Ashwathi.png'},
+        'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', 
+            avatarUrl: '/Deepika.jpg' },
     };
 
     // CRITICAL: Normalize the userEmail for reliable lookups
     const normalizedEmail = userEmail.toLowerCase();
     
+    // Get current user profile data
+    const currentUserProfile = profileInfoMapping[normalizedEmail];
+    
     // Use the normalized email for name lookup
-    const displayName = profileInfoMapping[normalizedEmail]?.name || userEmail;
+    const displayName = currentUserProfile?.name || userEmail;
+    
+    // Get the current user's avatar URL
+    const avatarImage = currentUserProfile?.avatarUrl;
 
 
-    // FIX: Replaced single quotes (') with double quotes (") in fontSize attributes
     const cards = [
         { title: 'Chat', link: 'https://cliq.zoho.in/', icon: <ChatBubbleOutline fontSize="large" /> },
         { title: 'Email', link: 'https://www.zoho.com/mail', icon: <EmailOutlined fontSize="large" /> },
@@ -83,21 +97,26 @@ const Dashboard = () => {
 
     const getInitials = (email) => {
         if (!email) return '';
-        return email.charAt(0).toUpperCase();
+        // Use the first letter of the name if available, otherwise fall back to email initial
+        const nameToUse = currentUserProfile?.name || email;
+        return nameToUse.charAt(0).toUpperCase();
     };
 
     const handleEmailClick = () => {
-        // Use the normalized email for state change
         setSelectedProfileEmail(prevEmail => prevEmail ? null : normalizedEmail);
     };
 
     // --- Conditional Rendering for Profile View ---
     if (selectedProfileEmail) {
+        // 🌟 CRITICAL CHANGE: Get the avatar URL for the SELECTED profile and pass it
+        const selectedUserProfile = profileInfoMapping[selectedProfileEmail];
+        const selectedProfileAvatarUrl = selectedUserProfile?.avatarUrl || null;
+
         return (
             <EmployeeProfile 
-                // Pass the normalized email to the Profile component
                 email={selectedProfileEmail} 
                 onBack={() => setSelectedProfileEmail(null)} 
+                avatarUrl={selectedProfileAvatarUrl} // <-- Passed to EmployeeProfile
             />
         );
     }
@@ -118,7 +137,13 @@ const Dashboard = () => {
 
                 {userEmail && (
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Avatar sx={{ bgcolor: '#4caf50' }}>{getInitials(normalizedEmail)}</Avatar>
+                        {/* 🌟 Avatar now uses src prop for the photo, or falls back to initials */}
+                        <Avatar 
+                            sx={{ bgcolor: '#4caf50' }} 
+                            src={avatarImage || ''}
+                        >
+                            {!avatarImage && getInitials(normalizedEmail)}
+                        </Avatar>
                         <Typography
                             onClick={handleEmailClick}
                             sx={{
