@@ -54,7 +54,7 @@ const Dashboard = () => {
     // NOTE: '/SunithaChandai.jpeg' assumes the file is in your public folder.
     const profileInfoMapping = {
         'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', 
-            avatarUrl: '/Aarthigopal.jpg' }, 
+            avatarUrl: '/Aarthig.jpeg'},
         'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B', 
             avatarUrl: '/yogesh.jpg' },
         'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda',
@@ -148,8 +148,7 @@ const Dashboard = () => {
                             onClick={handleEmailClick}
                             sx={{
                                 cursor: 'pointer',
-                                color: '#1976d2',
-                                textDecoration: 'underline',
+                                color: 'rgba(245, 245,245)',
                                 userSelect: 'none',
                             }}
                             role="button"
