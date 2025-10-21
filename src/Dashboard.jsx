@@ -54,23 +54,23 @@ const Dashboard = () => {
     // NOTE: '/SunithaChandai.jpeg' assumes the file is in your public folder.
     const profileInfoMapping = {
         'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', 
-            avatarUrl: '/Aarthig.jpeg'},
+            avatarUrl: './Aarthig.jpeg'},
         'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B', 
-            avatarUrl: '/yogesh.jpg' },
+            avatarUrl: './yogesh.jpg' },
         'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda',
-         avatarUrl: '/Sunitha.jpeg'}, 
+         avatarUrl: './Sunitha.jpeg'}, 
         'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu',
-             avatarUrl: '/vijayan.jpg' },
+             avatarUrl: './vijayan.jpg' },
         'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi', 
-            avatarUrl: '/Samruthha.png'},
+            avatarUrl: './Samruthha.png'},
         'ronald.k@coe.zhapix.com':{ name: 'Ronald Kevin',
-             avatarUrl: '/Kevin.png' },
+             avatarUrl: './Kevin.png' },
         'rudra.l@coe.zhapix.com':{ name: 'Rudramoorthy',
-             avatarUrl:'/Rudra.png' },
+             avatarUrl:'./Rudra.png' },
         'ashwathi.p@coe.zhapix.com':{ name: 'Ashwathi Palaniraj',
-             avatarUrl: '/Ashwathi.png'},
+             avatarUrl: './Ashwathi.png'},
         'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', 
-            avatarUrl: '/Deepika.jpg' },
+            avatarUrl: './Deepika.jpg' },
     };
 
     // CRITICAL: Normalize the userEmail for reliable lookups
