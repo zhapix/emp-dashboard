@@ -1,4 +1,3 @@
-// Dashboard.jsx - FINAL CORRECTED CODE with Photo URLs and Profile URL Passing
 import React, { useEffect, useState } from 'react';
 import {
     Typography,
@@ -15,7 +14,8 @@ import {
 } from '@mui/icons-material';
 
 import './Dashboard.css';
-import EmployeeProfile from './EmployeeProfile';
+// EmployeeProfile component is assumed to be defined in this file location
+import EmployeeProfile from './EmployeeProfile'; 
 
 // Card Component (Unchanged)
 const Card = ({ title, link, icon }) => {
@@ -43,15 +43,16 @@ const Card = ({ title, link, icon }) => {
 
 const Dashboard = () => {
     const [userEmail, setUserEmail] = useState('');
-    const [selectedProfileEmail, setSelectedProfileEmail] = useState(null);
+    // State to control which profile is viewed (null means dashboard view)
+    const [selectedProfileEmail, setSelectedProfileEmail] = useState(null); 
 
     useEffect(() => {
         const searchParamVals = new URLSearchParams(window.location.search);
-        setUserEmail(searchParamVals.get('userEmail') || '');
+        // Get the logged-in user's email from URL parameters
+        setUserEmail(searchParamVals.get('userEmail') || ''); 
     }, []);
 
-    // 🌟 MODIFIED MAPPING: Added avatarUrl for profile photos
-    // NOTE: '/SunithaChandai.jpeg' assumes the file is in your public folder.
+    // Mapping of emails to user profile information (name and photo URL)
     const profileInfoMapping = {
         'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', 
             avatarUrl: './Aarthig.jpeg'},
@@ -73,13 +74,13 @@ const Dashboard = () => {
             avatarUrl: './Deepika.jpg' },
     };
 
-    // CRITICAL: Normalize the userEmail for reliable lookups
+    // Normalize the userEmail for reliable lookup
     const normalizedEmail = userEmail.toLowerCase();
     
     // Get current user profile data
     const currentUserProfile = profileInfoMapping[normalizedEmail];
     
-    // Use the normalized email for name lookup
+    // Use the name from the mapping or fallback to the email
     const displayName = currentUserProfile?.name || userEmail;
     
     // Get the current user's avatar URL
@@ -103,25 +104,28 @@ const Dashboard = () => {
     };
 
     const handleEmailClick = () => {
+        // Toggles between showing the dashboard (null) and the profile (normalizedEmail)
         setSelectedProfileEmail(prevEmail => prevEmail ? null : normalizedEmail);
     };
 
     // --- Conditional Rendering for Profile View ---
+    // If an email is selected, render the EmployeeProfile component instead of the dashboard
     if (selectedProfileEmail) {
-        // 🌟 CRITICAL CHANGE: Get the avatar URL for the SELECTED profile and pass it
+        // Get the avatar URL for the selected profile to pass as a prop
         const selectedUserProfile = profileInfoMapping[selectedProfileEmail];
         const selectedProfileAvatarUrl = selectedUserProfile?.avatarUrl || null;
 
         return (
             <EmployeeProfile 
                 email={selectedProfileEmail} 
-                onBack={() => setSelectedProfileEmail(null)} 
-                avatarUrl={selectedProfileAvatarUrl} // <-- Passed to EmployeeProfile
+                onBack={() => setSelectedProfileEmail(null)} // Function to return to dashboard
+                avatarUrl={selectedProfileAvatarUrl} 
             />
         );
     }
     // --- End Conditional Rendering ---
 
+    // --- Main Dashboard View ---
     return (
         <div className="dashboard-container">
             <header
@@ -136,8 +140,16 @@ const Dashboard = () => {
                 </div>
 
                 {userEmail && (
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        {/* 🌟 Avatar now uses src prop for the photo, or falls back to initials */}
+                    <Box 
+                        sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+                        onClick={handleEmailClick} // Click on the box (avatar or name)
+                        role="button"
+                        tabIndex={0}
+                        onKeyPress={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') handleEmailClick();
+                        }}
+                    >
+                        {/* Avatar now uses src prop for the photo, or falls back to initials */}
                         <Avatar 
                             sx={{ bgcolor: '#4caf50' }} 
                             src={avatarImage || ''}
@@ -145,16 +157,10 @@ const Dashboard = () => {
                             {!avatarImage && getInitials(normalizedEmail)}
                         </Avatar>
                         <Typography
-                            onClick={handleEmailClick}
                             sx={{
                                 cursor: 'pointer',
                                 color: 'rgba(245, 245,245)',
                                 userSelect: 'none',
-                            }}
-                            role="button"
-                            tabIndex={0}
-                            onKeyPress={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') handleEmailClick();
                             }}
                         >
                             {displayName}
