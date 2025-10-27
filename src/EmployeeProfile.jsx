@@ -1,10 +1,9 @@
-// EmployeeProfile.jsx
 import React from 'react';
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box, Button, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import './EmployeeProfile.css'; // <-- Correct CSS import
+import './EmployeeProfile.css'; 
 
-// --- COMPLETE MOCK EMPLOYEE DATA (KEYS ARE LOWERCASE FOR ROBUSTNESS) ---
+// --- MOCK EMPLOYEE DATA (Complete List) ---
 const mockEmployeeData = {
     'aarthi.g@coe.zhapix.com': {
         name: "Aarthi g",
@@ -22,9 +21,9 @@ const mockEmployeeData = {
         joiningDate: "1 Aug, 2025",
         status: "Active",
         primarySkills: "Software Testing, Playwright, Javascript, Cypress, Postman",
-        secondarySkills: "", // Empty string if no secondary skills
+        secondarySkills: "", 
     },
-    'samruthha.l@coe.zhapix.com': { 
+    'samruthha.l@coe.zhapix.com': {
         name: "Samruthha Lakshmi",
         empId: "INT0017",
         designation: "Fullstack Developer Intern",
@@ -33,25 +32,7 @@ const mockEmployeeData = {
         primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
         secondarySkills: "GCP-Firebase, JEST",
     },
-    'ronald.k@coe.zhapix.com':{ 
-        name: "Ronald Kevin",
-        empId: "INT0016",
-        designation: "Fullstack Developer Intern",
-        joiningDate: "1 Aug, 2025",
-        status: "Active",
-        primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
-        secondarySkills: "GCP-Firebase, JEST",
-    },
-    'rudra.l@coe.zhapix.com':{ 
-        name: "Rudramoorthy",
-        empId: "INT0015",
-        designation: "Fullstack Developer",
-        joiningDate: "1 Aug, 2025",
-        status: "Active",
-        primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
-        secondarySkills: "JEST",
-    },
-    'deepika.j@coe.zhapix.com':{ 
+    'deepika.j@coe.zhapix.com': {
         name: "Deepika Jaikumar",
         empId: "INT0014",
         designation: "Software Testing Intern",
@@ -75,86 +56,114 @@ const mockEmployeeData = {
         designation: "Technical Support Engineer",
         joiningDate: "1 Sep, 2025",
         status: "Active",
-        primarySkills: "UI/UX Design, Figma, Canva, Draw.io, CorelDraw, HTML, CSS, Javascript, ReactJS",
+        primarySkills: "UI/UX Design, Figma, Canva, Draw.io, CorelDraw, HTML, CSS, Javascript, React",
         secondarySkills: "Zoho Platform",
     },
     'vijayan.t@zhapix.com': {
         name: "Vijayan Thanigaivelu",
         empId: "1001",
-        designation: "N/A", 
-        joiningDate: "N/A", 
+        designation: "N/A",
+        joiningDate: "N/A",
         status: "Active",
         primarySkills: "zhapix",
         secondarySkills: "",
     },
-
-
-    
-    
+    'ronald.k@coe.zhapix.com': {
+        name: "Ronald Kevin",
+        empId: "INT0016",
+        designation: "Fullstack Developer Intern",
+        joiningDate: "1 Aug, 2025",
+        status: "Active",
+        primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
+        secondarySkills: "GCP-Firebase, JEST",
+    },
+    'rudra.l@coe.zhapix.com': {
+        name: "Rudramoorthy",
+        empId: "INT0015",
+        designation: "Fullstack Developer",
+        joiningDate: "1 Aug, 2025",
+        status: "Active",
+        primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
+        secondarySkills: "JEST",
+    },
 };
-// --- END COMPLETE MOCK EMPLOYEE DATA ---
+// --- END MOCK EMPLOYEE DATA ---
 
-/**
- * Component for a single row in the profile table.
- * It handles rendering "Profile Not Found" if the email is invalid.
- */
 const ProfileRow = ({ label, value }) => {
-    // Only render the row if the value is not an empty string or 'N/A'
-    // This allows us to hide rows like Secondary Skills if not applicable, 
-    // but keeps the "Name: Profile Not Found" visible.
-    if (label !== "Name" && (!value || value.toLowerCase() === 'n/a' || value.trim() === '')) {
-        return null; 
+    if (!value || value.toLowerCase() === 'n/a' || value.trim() === '') {
+        return null;
     }
-    
+
     return (
         <div className="profile-row">
-            <div className="profile-label">{label}</div>
-            <div className="profile-value">{value}</div>
+            <div className="profile-label">{label}</div> 
+            <div className="profile-value">
+                <Typography variant="body1" sx={{ color: 'inherit' }}>
+                    {value}
+                </Typography>
+            </div>
         </div>
     );
 };
 
-const EmployeeProfile = ({ email, onBack }) => {
-    // Retrieve profile data based on the email prop (which should be lowercase)
-    const profile = mockEmployeeData[email] || {
+const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
+    
+    const normalizedEmail = (email || '').toLowerCase();
+    
+    const profile = mockEmployeeData[normalizedEmail] || {
         name: "Profile Not Found",
-        empId: "N/A",
-        designation: "N/A",
-        joiningDate: "N/A",
-        status: "N/A",
-        primarySkills: "N/A",
-        secondarySkills: "N/A",
+        // ... (other fallback fields)
     };
 
+    const avatarInitial = profile.name && profile.name !== "Profile Not Found" 
+        ? profile.name.charAt(0).toUpperCase()
+        : 'NF'; 
+
     return (
-        <div className="profile-view-container">
-            <Box sx={{ p: 2, display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc' }}>
-                <Button onClick={onBack} startIcon={<ArrowBackIcon />}>
-                    Back to Dashboard
+        <div className="profile-view-wrapper">
+            <Box sx={{ p: 0, mb: 3 }}>
+                <Button 
+                    onClick={onBack} 
+                    startIcon={<ArrowBackIcon />}
+                    sx={{ color: '#4caf50', textTransform: 'none' }}
+                >
+                    BACK TO DASHBOARD
                 </Button>
-                {/* Only show the name in the header if the profile was found */}
-                {profile.name !== "Profile Not Found" && (
-                    <Typography variant="h4" component="h2" sx={{ ml: 2 }}>
-                        {profile.name}'s Profile
-                    </Typography>
-                )}
             </Box>
 
-            <div className="profile-card-container">
-                {/* Always show the Name row, even if Profile Not Found */}
-                <ProfileRow label="Name" value={profile.name} />
+            <div className="profile-view-container">
                 
-                {/* Conditionally show other rows only if the profile was found */}
-                {profile.name !== "Profile Not Found" && (
-                    <>
-                        <ProfileRow label="Emp ID" value={profile.empId} />
-                        <ProfileRow label="Designation" value={profile.designation} />
-                        <ProfileRow label="Joining Date" value={profile.joiningDate} />
-                        <ProfileRow label="Status" value={profile.status} />
-                        <ProfileRow label="Primary Skills" value={profile.primarySkills} />
-                        <ProfileRow label="Secondary Skills" value={profile.secondarySkills} />
-                    </>
-                )}
+                <div className="profile-card-container">
+                    <ProfileRow label="Name" value={profile.name} />
+                    
+                    {profile.name !== "Profile Not Found" && (
+                        <>
+                            <ProfileRow label="Emp ID" value={profile.empId} />
+                            <ProfileRow label="Designation" value={profile.designation} />
+                            <ProfileRow label="Joining Date" value={profile.joiningDate} />
+                            <ProfileRow label="Status" value={profile.status} />
+                            <ProfileRow label="Primary Skills" value={profile.primarySkills} />
+                            <ProfileRow label="Secondary Skills" value={profile.secondarySkills} />
+                        </>
+                    )}
+                </div>
+
+                <div className="profile-photo-column">
+                    <Avatar
+                        alt={profile.name}
+                        src={avatarUrl || ''}
+                        sx={{ 
+                            width: 200,    /* <-- INCREASED SIZE */
+                            height: 200,   /* <-- INCREASED SIZE */
+                            bgcolor: '#FFFFFF', 
+                            fontSize: '3rem', /* <-- Increased font size for initial */
+                            border: '4px solid white',
+                            color: '#324155' 
+                        }}
+                    >
+                        {avatarInitial} 
+                    </Avatar>
+                </div>
             </div>
         </div>
     );
