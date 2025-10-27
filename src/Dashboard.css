@@ -1,132 +1,132 @@
 /* Dashboard.css */
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #2f3e4e;
-  color: #fff;
-  margin: 20px;
-  padding: 5px;
-  font-size: 1.50em;
+    font-family: 'Roboto', sans-serif;
+    background-color: #2f3e4e;
+    color: #fff;
+    margin: 20px;
+    padding: 5px;
+    font-size: 1.50em;
 }
 
 body.dark {
-  background-color: #1e293b;
-  color: #cbd5e1;
+    background-color: #1e293b;
+    color: #cbd5e1;
 }
 
 .dashboard-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #324155;
-  border-radius: 12px;
-  min-height: 40px; /* Increased height */
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #324155;
+    border-radius: 12px;
+    min-height: 40px; 
 }
 
 
 .dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;  
-  border-bottom: 1px solid #4a4a4a;
-  padding-bottom: 12px;
-  margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 	
+    border-bottom: 1px solid #4a4a4a;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
 }
 
 .dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
 }
 
 .card {
-  background-color: #2f3e4e;
-  border: 1px solid #4caf50;
-  border-radius: 12px;
-  padding: 40px;
-  margin: 40px;
-  min-height: 46px;
-  cursor: pointer;
+    background-color: #2f3e4e;
+    border: 1px solid #4caf50;
+    border-radius: 12px;
+    padding: 40px;
+    margin: 40px;
+    min-height: 46px;
+    cursor: pointer;
 
-  display: flex;
-  flex-direction: row;       /* <-- important change */
-  align-items: center;       /* vertically center icon + text */
-                   /* space between icon and text */
-  justify-content: center;
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: #ffffff;
+    display: flex;
+    flex-direction: row; 	
+    align-items: center; 	
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
 
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  text-align: left;          /* text aligns nicely beside icon */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: left; 	
 }
 
 .card-icon {
-  font-size: 7em;
-  color: #f7f3f3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  margin-right: 0.25rem;
+    font-size: 7em;
+    color: #f7f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    margin-right: 0.25rem;
 }
 
 .card:hover {
-  background-color: #40603f;
-  box-shadow: 0 0 10px #4caf50;
+    background-color: #40603f;
+    box-shadow: 0 0 10px #4caf50;
 }
 
 
 .card-link {
-  font-size: 14px;
-  color: #d4f5d4;
-  text-decoration: none;
-  font-weight: 500;
+    font-size: 14px;
+    color: #d4f5d4;
+    text-decoration: none;
+    font-weight: 500;
 }
 
 .card-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 
 /* Responsive layout for smaller screens */
 @media (max-width: 800px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 480px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
 
-  .dashboard-container {
-    margin: 20px;
-  }
+    .dashboard-container {
+        margin: 20px;
+    }
 }
+
 .dashboard-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* FINAL CURSOR FIX: Apply pointer cursor to the logo container */
+    cursor: pointer;
 }
 
 .logo-image {
-  height: 2rem;
-  cursor: pointer;
-  vertical-align: middle;
+    height: 2rem;
+    cursor: pointer;
+    vertical-align: middle;
 }
 
 
 .logo-text {
-  color: #eef3ee;
-  font-weight: 600;
+    color: #eef3ee;
+    font-weight: 600;
 }
+
 .dashboard-title {
-    /* Changes the mouse pointer from I-beam to the default arrow */
-    cursor: default;
-    
-    /* Prevents the text from being selected/highlighted on click/drag */
+    /* FINAL CURSOR FIX: Prevents the blinking text caret */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -135,6 +135,5 @@ body.dark {
 
 /* Target the user's name/email (which uses a Typography component) */
 .dashboard-header .MuiBox-root > .MuiTypography-root {
-    /* Re-apply user-select just in case, though it's already in the JSX */
     user-select: none;
 }

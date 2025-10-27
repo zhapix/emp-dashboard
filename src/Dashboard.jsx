@@ -116,10 +116,33 @@ const Dashboard = () => {
                 className="dashboard-header"
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
-                {/* Dashboard Logo and Title Section */}
-                <div className="dashboard-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                {/* Dashboard Logo and Title Section - MODIFIED FOR POINTER CURSOR AND BLUR FIX */}
+                <div 
+                    className="dashboard-logo" 
+                    style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+                    // Added tabIndex, role, and blur function for proper clicking behavior
+                    tabIndex={0} 
+                    role="button"
+                    onClick={(e) => { 
+                        if (e.currentTarget) e.currentTarget.blur();
+                        // Optional: Add logic here to navigate to the home page
+                    }}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            if (e.currentTarget) e.currentTarget.blur();
+                        }
+                    }}
+                >
                     <img alt="Zhapix Logo" className="logo-image" src="./logo.png" />
-                    <Typography variant="h5" component="h1" className="dashboard-title">
+                    <Typography 
+                        variant="h5" 
+                        component="h1" 
+                        className="dashboard-title"
+                        sx={{
+                            // Cursor property is now managed by the parent .dashboard-logo CSS for uniformity
+                            userSelect: 'none', 
+                        }}
+                    >
                         Dashboard
                     </Typography>
                 </div>
@@ -131,13 +154,12 @@ const Dashboard = () => {
                             display: 'flex', 
                             alignItems: 'center', 
                             gap: 1,
-                            cursor: 'pointer', // Ensures the whole area is clickable/hoverable
+                            cursor: 'pointer',
                         }}
                         onClick={handleEmailClick}
                         role="button"
                         tabIndex={0}
                         onKeyPress={(e) => {
-                            // Ensure blur() is called for keyboard activation as well
                             if (e.key === 'Enter' || e.key === ' ') handleEmailClick(e);
                         }}
                     >

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Box, Button, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import './EmployeeProfile.css'; 
+import './EmployeeProfile.css';
 
 // --- MOCK EMPLOYEE DATA (Complete List) ---
 const mockEmployeeData = {
@@ -21,7 +21,7 @@ const mockEmployeeData = {
         joiningDate: "1 Aug, 2025",
         status: "Active",
         primarySkills: "Software Testing, Playwright, Javascript, Cypress, Postman",
-        secondarySkills: "", 
+        secondarySkills: "",
     },
     'samruthha.l@coe.zhapix.com': {
         name: "Samruthha Lakshmi",
@@ -96,7 +96,7 @@ const ProfileRow = ({ label, value }) => {
 
     return (
         <div className="profile-row">
-            <div className="profile-label">{label}</div> 
+            <div className="profile-label">{label}</div>
             <div className="profile-value">
                 <Typography variant="body1" sx={{ color: 'inherit' }}>
                     {value}
@@ -107,23 +107,28 @@ const ProfileRow = ({ label, value }) => {
 };
 
 const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
-    
+
     const normalizedEmail = (email || '').toLowerCase();
-    
+
     const profile = mockEmployeeData[normalizedEmail] || {
         name: "Profile Not Found",
-        // ... (other fallback fields)
+        empId: "N/A",
+        designation: "N/A",
+        joiningDate: "N/A",
+        status: "N/A",
+        primarySkills: "N/A",
+        secondarySkills: "N/A",
     };
 
-    const avatarInitial = profile.name && profile.name !== "Profile Not Found" 
+    const avatarInitial = profile.name && profile.name !== "Profile Not Found"
         ? profile.name.charAt(0).toUpperCase()
-        : 'NF'; 
+        : 'NF';
 
     return (
         <div className="profile-view-wrapper">
             <Box sx={{ p: 0, mb: 3 }}>
-                <Button 
-                    onClick={onBack} 
+                <Button
+                    onClick={onBack}
                     startIcon={<ArrowBackIcon />}
                     sx={{ color: '#4caf50', textTransform: 'none' }}
                 >
@@ -132,10 +137,10 @@ const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
             </Box>
 
             <div className="profile-view-container">
-                
+
                 <div className="profile-card-container">
                     <ProfileRow label="Name" value={profile.name} />
-                    
+
                     {profile.name !== "Profile Not Found" && (
                         <>
                             <ProfileRow label="Emp ID" value={profile.empId} />
@@ -152,17 +157,23 @@ const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
                     <Avatar
                         alt={profile.name}
                         src={avatarUrl || ''}
-                        sx={{ 
-                            width: 200,    /* <-- INCREASED SIZE */
-                            height: 200,   /* <-- INCREASED SIZE */
-                            bgcolor: '#FFFFFF', 
-                            fontSize: '3rem', /* <-- Increased font size for initial */
+                        sx={{
+                            width: 200,
+                            height: 200,
+                            bgcolor: '#FFFFFF',
+                            fontSize: '3rem',
                             border: '4px solid white',
-                            color: '#324155' 
+                            color: '#324155',
+                            '& img': {
+                                objectFit: 'contain',
+                                width: '100%',
+                                height: '100%'
+                            }
                         }}
                     >
-                        {avatarInitial} 
+                        {avatarInitial}
                     </Avatar>
+
                 </div>
             </div>
         </div>
