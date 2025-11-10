@@ -13,15 +13,12 @@ import {
     GitHub,
 } from '@mui/icons-material';
 
+// 🚨 NOTE: These imports assume you have corresponding files in the same directory.
 import './Dashboard.css';
 import EmployeeProfile from './EmployeeProfile'; 
 import './EmployeeProfile.css';
-
-// ➡️ NEW IMPORTS for the Program Status Feature
 import ProgramStatusBanner from './ProgramStatusBanner'; 
 import ProgramStatusPage from './ProgramStatusPage'; 
-
-// 🚨 Don't forget to import the new CSS file for Program Status!
 import './ProgramStatusStyles.css';
 
 
@@ -60,7 +57,9 @@ const Dashboard = () => {
     }, []);
 
     const profileInfoMapping = {
-        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg'},
+        
+        
+        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg'}, 
         'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B', avatarUrl: './yogesh.jpg' },
         'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda', avatarUrl: './Sunitha.jpeg'}, 
         'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu', avatarUrl: './vijayan.jpg' },
@@ -68,7 +67,7 @@ const Dashboard = () => {
         'ronald.k@coe.zhapix.com':{ name: 'Ronald Kevin', avatarUrl: './Kevin.png' },
         'rudra.l@coe.zhapix.com':{ name: 'Rudramoorthy', avatarUrl:'./Rudra.png' },
         'ashwathi.p@coe.zhapix.com':{ name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png'},
-        'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg' },
+       // 'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg' },
     };
 
     const normalizedEmail = userEmail.toLowerCase();
@@ -85,29 +84,45 @@ const Dashboard = () => {
         { title: 'Learn', link: 'https://irp.zhapix.com', icon: <MenuBookOutlined fontSize="large" /> },
     ];
 
+    // The getInitials function is no longer needed if we don't want the fallback.
+    // Keeping it just in case, but its return value is removed from the Avatar component.
     const getInitials = (email) => {
         if (!email) return '';
-        const nameToUse = currentUserProfile?.name || email;
-        return nameToUse.charAt(0).toUpperCase();
+        
+        // Use the first letter of the full name if available
+        const nameToUse = currentUserProfile?.name;
+        if (nameToUse) {
+            return nameToUse.charAt(0).toUpperCase();
+        }
+        
+        // Fallback to the first letter of the email
+        return email.charAt(0).toUpperCase();
     };
 
     const handleEmailClick = (event) => {
+        // Close other views before toggling profile view
         setShowProgramStatusPage(false); 
+        // Toggles the EmployeeProfile view
         setSelectedProfileEmail(prevEmail => prevEmail ? null : normalizedEmail);
         
+        // Remove focus from the button after click
         if (event && event.currentTarget) {
             event.currentTarget.blur();
         }
     };
 
     const handleProgramStatusClick = () => {
+        // Close profile view
         setSelectedProfileEmail(null); 
+        // Open Program Status view
         setShowProgramStatusPage(true);
     };
 
     const handleBackFromProgramStatus = () => {
         setShowProgramStatusPage(false);
     };
+
+    // --- Conditional Rendering for Profile and Status Pages ---
 
     if (selectedProfileEmail) {
         const selectedUserProfile = profileInfoMapping[selectedProfileEmail];
@@ -128,18 +143,22 @@ const Dashboard = () => {
         );
     }
     
+    // --- Main Dashboard Rendering ---
+
     return (
         <div className="dashboard-container">
             <header
                 className="dashboard-header"
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
+                {/* Logo and Title */}
                 <div 
                     className="dashboard-logo" 
                     style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
                     tabIndex={0} 
                     role="button"
                     onClick={(e) => { 
+                        // Blurs element to prevent persistent outline on click
                         if (e.currentTarget) e.currentTarget.blur();
                     }}
                     onKeyPress={(e) => {
@@ -159,6 +178,7 @@ const Dashboard = () => {
                     </Typography>
                 </div>
 
+                {/* User Profile/Avatar Section */}
                 {userEmail && (
                     <Box 
                         sx={{ 
@@ -178,7 +198,8 @@ const Dashboard = () => {
                             sx={{ bgcolor: '#4caf50' }} 
                             src={avatarImage || ''}
                         >
-                            {!avatarImage && getInitials(normalizedEmail)}
+                            {/* 🚫 CRITICAL CHANGE: Removed the fallback initial {getInitials(normalizedEmail)}.
+                                 Now, if the image fails, the green background will show, but no text. */}
                         </Avatar>
                         <Typography
                             sx={{
@@ -192,10 +213,12 @@ const Dashboard = () => {
                 )}
             </header>
 
-            {/* Added a container div to control layout */}
+            {/* Content Area (Banner and Links Grid) */}
             <div className="dashboard-content">
+                {/* Program Status Banner */}
                 <ProgramStatusBanner onClick={handleProgramStatusClick} />
                 
+                {/* Links Grid */}
                 <main className="dashboard-grid">
                     {cards.map((card) => (
                         <Card key={card.title} {...card} />
