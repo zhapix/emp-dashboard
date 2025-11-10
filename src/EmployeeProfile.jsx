@@ -130,7 +130,7 @@ const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
                 <Button
                     onClick={onBack}
                     startIcon={<ArrowBackIcon />}
-                    sx={{ color: '#4caf50', textTransform: 'none' }}
+                    sx={{ color: 'rgba(241, 247, 242, 1)', textTransform: 'none' }}
                 >
                     BACK TO DASHBOARD
                 </Button>

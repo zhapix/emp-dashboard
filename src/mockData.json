@@ -1,0 +1,42 @@
+[
+  {
+    "category": "Pre-Bootcamp",
+    "section": "Preliminary",
+    "status": "completed", 
+    "compDate": "10-Oct-2025",
+    "expDate": null,
+    "comment": "Completed On Time"
+  },
+  {
+    "category": "Mastery Sessions",
+    "section": "Bootcamp",
+    "status": "pending", 
+    "compDate": null,
+    "expDate": "11-Oct-2025",
+    "comment": "Exp. Date"
+  },
+  {
+    "category": "Workshops",
+    "section": "Workshop 1\nWorkshop 2", 
+    "status": "completed",
+    "compDate": "12-Oct-2025",
+    "expDate": null,
+    "comment": "Comp. Date"
+  },
+  {
+    "category": "Training",
+    "section": "Add-on Sessions",
+    "status": "pending",
+    "compDate": null,
+    "expDate": "15-Oct-2025",
+    "comment": "Exp. Date"
+  },
+  {
+    "category": "Zhapix Internal Projects",
+    "section": "Internship",
+    "status": "pending",
+    "compDate": null,
+    "expDate": "20-Oct-2025",
+    "comment": "Exp. Date"
+  }
+]

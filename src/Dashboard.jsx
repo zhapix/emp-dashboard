@@ -14,10 +14,18 @@ import {
 } from '@mui/icons-material';
 
 import './Dashboard.css';
-// EmployeeProfile component is assumed to be defined in this file location
 import EmployeeProfile from './EmployeeProfile'; 
+import './EmployeeProfile.css';
 
-// Card Component (Unchanged)
+// ➡️ NEW IMPORTS for the Program Status Feature
+import ProgramStatusBanner from './ProgramStatusBanner'; 
+import ProgramStatusPage from './ProgramStatusPage'; 
+
+// 🚨 Don't forget to import the new CSS file for Program Status!
+import './ProgramStatusStyles.css';
+
+
+// Card Component: Renders a single link card in the grid
 const Card = ({ title, link, icon }) => {
     const handleClick = () => {
         window.open(link, '_blank', 'noopener,noreferrer');
@@ -44,6 +52,7 @@ const Card = ({ title, link, icon }) => {
 const Dashboard = () => {
     const [userEmail, setUserEmail] = useState('');
     const [selectedProfileEmail, setSelectedProfileEmail] = useState(null); 
+    const [showProgramStatusPage, setShowProgramStatusPage] = useState(false); 
 
     useEffect(() => {
         const searchParamVals = new URLSearchParams(window.location.search);
@@ -82,19 +91,24 @@ const Dashboard = () => {
         return nameToUse.charAt(0).toUpperCase();
     };
 
-    /**
-     * FIX FOR STUCK CURSOR: Calls blur() on the element to remove focus/active state.
-     */
     const handleEmailClick = (event) => {
+        setShowProgramStatusPage(false); 
         setSelectedProfileEmail(prevEmail => prevEmail ? null : normalizedEmail);
         
-        // This is the core fix for the residual cursor graphic: removes focus after click.
         if (event && event.currentTarget) {
             event.currentTarget.blur();
         }
     };
 
-    // --- Conditional Rendering for Profile View ---
+    const handleProgramStatusClick = () => {
+        setSelectedProfileEmail(null); 
+        setShowProgramStatusPage(true);
+    };
+
+    const handleBackFromProgramStatus = () => {
+        setShowProgramStatusPage(false);
+    };
+
     if (selectedProfileEmail) {
         const selectedUserProfile = profileInfoMapping[selectedProfileEmail];
         const selectedProfileAvatarUrl = selectedUserProfile?.avatarUrl || null;
@@ -107,25 +121,26 @@ const Dashboard = () => {
             />
         );
     }
-    // --- End Conditional Rendering ---
 
-    // --- Main Dashboard View ---
+    if (showProgramStatusPage) {
+        return (
+            <ProgramStatusPage onBack={handleBackFromProgramStatus} />
+        );
+    }
+    
     return (
         <div className="dashboard-container">
             <header
                 className="dashboard-header"
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
-                {/* Dashboard Logo and Title Section - MODIFIED FOR POINTER CURSOR AND BLUR FIX */}
                 <div 
                     className="dashboard-logo" 
                     style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
-                    // Added tabIndex, role, and blur function for proper clicking behavior
                     tabIndex={0} 
                     role="button"
                     onClick={(e) => { 
                         if (e.currentTarget) e.currentTarget.blur();
-                        // Optional: Add logic here to navigate to the home page
                     }}
                     onKeyPress={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -138,16 +153,12 @@ const Dashboard = () => {
                         variant="h5" 
                         component="h1" 
                         className="dashboard-title"
-                        sx={{
-                            // Cursor property is now managed by the parent .dashboard-logo CSS for uniformity
-                            userSelect: 'none', 
-                        }}
+                        sx={{ userSelect: 'none' }}
                     >
                         Dashboard
                     </Typography>
                 </div>
 
-                {/* User Profile Section (Clickable) */}
                 {userEmail && (
                     <Box 
                         sx={{ 
@@ -181,11 +192,16 @@ const Dashboard = () => {
                 )}
             </header>
 
-            <main className="dashboard-grid">
-                {cards.map((card) => (
-                    <Card key={card.title} {...card} />
-                ))}
-            </main>
+            {/* Added a container div to control layout */}
+            <div className="dashboard-content">
+                <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                
+                <main className="dashboard-grid">
+                    {cards.map((card) => (
+                        <Card key={card.title} {...card} />
+                    ))}
+                </main>
+            </div>
         </div>
     );
 };
