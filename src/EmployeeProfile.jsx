@@ -5,6 +5,7 @@ import './EmployeeProfile.css';
 
 // --- MOCK EMPLOYEE DATA (Complete List) ---
 const mockEmployeeData = {
+    // ... (Employee data remains the same)
     'aarthi.g@coe.zhapix.com': {
         name: "Aarthi g",
         empId: "1004",
@@ -90,7 +91,10 @@ const mockEmployeeData = {
 // --- END MOCK EMPLOYEE DATA ---
 
 const ProfileRow = ({ label, value }) => {
-    if (!value || value.toLowerCase() === 'n/a' || value.trim() === '') {
+    // Check if the trimmed value is null/undefined, an empty string, or case-insensitive 'n/a'.
+    const isEmpty = !value || value.toString().trim() === '' || value.toString().toLowerCase() === 'n/a';
+    
+    if (isEmpty) {
         return null;
     }
 
@@ -120,6 +124,8 @@ const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
         secondarySkills: "N/A",
     };
 
+    // The avatarInitial is no longer needed for rendering the avatar, 
+    // but we can keep the logic in case it's used elsewhere later.
     const avatarInitial = profile.name && profile.name !== "Profile Not Found"
         ? profile.name.charAt(0).toUpperCase()
         : 'NF';
@@ -130,7 +136,7 @@ const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
                 <Button
                     onClick={onBack}
                     startIcon={<ArrowBackIcon />}
-                    sx={{ color: '#4caf50', textTransform: 'none' }}
+                    sx={{ color: 'rgba(241, 247, 242, 1)', textTransform: 'none' }}
                 >
                     BACK TO DASHBOARD
                 </Button>
@@ -156,22 +162,25 @@ const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
                 <div className="profile-photo-column">
                     <Avatar
                         alt={profile.name}
-                        src={avatarUrl || ''}
+                        // If avatarUrl is null/undefined or fails to load,
+                        // nothing will be shown inside the Avatar container
+                        // because we removed the child content.
+                        src={avatarUrl || ''} 
                         sx={{
                             width: 200,
                             height: 200,
-                            bgcolor: '#FFFFFF',
+                            // White background will show if no image loads
+                            bgcolor: 'rgba(236, 241, 240, 1)', 
                             fontSize: '3rem',
                             border: '4px solid white',
                             color: '#324155',
                             '& img': {
-                                objectFit: 'contain',
+                                objectFit: 'cover', 
                                 width: '100%',
                                 height: '100%'
                             }
                         }}
                     >
-                        {avatarInitial}
                     </Avatar>
 
                 </div>

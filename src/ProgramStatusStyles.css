@@ -1,0 +1,82 @@
+
+.program-status-header {
+    /* FIX: Restore the dark background color from your application's theme */
+    background-color: #2c3e50; 
+    box-shadow: none; 
+    color: white; /* Ensure text is white */
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    border-bottom: none; /* Removed subtle separator to match image */
+}
+
+/* Back button styles remain correct */
+.program-status-header .MuiButton-contained {
+    background-color: #3498db;
+}
+
+.program-status-header .MuiButton-contained:hover {
+    background-color: #2980b9;
+}
+
+
+/* Program Status Table (Container) - Styles look correct for table appearance */
+.program-status-table-container {
+    max-width: 95%;
+    margin: 20px auto; 
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16); 
+    border-radius: 4px;
+    overflow: hidden; 
+}
+
+/* Specific table styling for padding, alignment etc. - These look correct */
+.program-status-table th, 
+.program-status-table td {
+    padding: 12px 16px; 
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.program-status-table th {
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Specific column alignment for status/date/date type - These look correct */
+.program-status-table th:nth-child(3), 
+.program-status-table td:nth-child(3),
+.program-status-table th:nth-child(4), 
+.program-status-table td:nth-child(4),
+.program-status-table th:nth-child(5), 
+.program-status-table td:nth-child(5) {
+    text-align: center;
+}
+
+.program-status-table tbody tr:hover {
+    background-color: #f5f5f5; 
+}
+
+/* Multi-line text within cells - Looks correct */
+.program-status-table .MuiTypography-body2 {
+    white-space: pre-wrap;
+    line-height: 1.4;
+}
+
+/* Status icon colors and Date colors - These rely on Material UI props and CSS selectors, which are fine */
+
+
+.program-status-banner-container {
+    /* FIX: Set the blue color shown in the dashboard image (image_1928d9.png) */
+    background-color: #1976d2; /* Changed from #4CAF50 to the blue color */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3); /* Slightly darker shadow to make it pop */
+    border-radius: 4px;
+    color: white; 
+    margin-bottom: 24px; /* Increased margin for better separation from grid */
+    max-width: 400px; /* Increased width to match image layout better */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Ensure consistent text styling - Looks correct */
+.program-status-banner-container .MuiTypography-h5 {
+    font-weight: bold;
+    color: inherit; 
+}
