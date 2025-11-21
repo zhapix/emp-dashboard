@@ -1,0 +1,163 @@
+[
+  {
+    "empName": "Aarthi g",
+    "empId": "1004",
+    "emailId": "aarthi.g@coe.zhapix.com",
+    "designation": "Software Developer",
+    "joiningDate": "1/7/2025",
+    "status": "Active",
+    "primarySkills": [
+      "Frontend Development",
+      "ReactJS",
+      "Javascript",
+      "HTML",
+      "CSS"
+    ],
+    "secondarySkills": ["Postman", "Zoho Platform", "Canva", "Draw.io"],
+    "profilePicture": "Aarthi g.jpg"
+  },
+  {
+    "empName": "Ashwathi Palaniraj",
+    "empId": "INT006",
+    "emailId": "ashwathi.p@coe.zhapix.com",
+    "designation": "Software Testing Intern",
+    "joiningDate": "1 Aug, 2025",
+    "status": "Active",
+    "primarySkills": [
+      "Software Testing",
+      "Playwright",
+      "Javascript",
+      "Cypress",
+      "Postman"
+    ],
+    "secondarySkills": ["Github"],
+    "profilePicture": "Ashwathi Palaniraj.jpg"
+  },
+  {
+    "empName": "Samruthha Lakshmi",
+    "empId": "INT0017",
+    "emailId": "samruthha.l@coe.zhapix.com",
+    "designation": "Fullstack Developer Intern",
+    "joiningDate": "1 Aug, 2025",
+    "status": "Active",
+    "primarySkills": [
+      "Web Development",
+      "Javascript",
+      "ReactJS",
+      "NodeJS",
+      "MongoDB",
+      "HTML",
+      "CSS",
+      "Postman"
+    ],
+    "secondarySkills": ["GCP-Firebase", "JEST"],
+    "profilePicture": "Samruthha Lakshmi.jpg"
+  },
+  {
+    "empName": "Deepika Jaikumar",
+    "empId": "INT0014",
+    "emailId": "deepika.j@coe.zhapix.com",
+    "designation": "Software Testing Intern",
+    "joiningDate": "1 Aug, 2025",
+    "status": "Active",
+    "primarySkills": [
+      "Software Testing",
+      "Playwright",
+      "Javascript",
+      "Cypress",
+      "Postman"
+    ],
+    "secondarySkills": ["Github"],
+    "profilePicture": "Deepika Jaikumar.jpg"
+  },
+  {
+    "empName": "Yogesh Kumar B",
+    "empId": "1003",
+    "emailId": "yogesh.b@coe.zhapix.com",
+    "designation": "QA Engineer",
+    "joiningDate": "1 Jun, 2025",
+    "status": "Active",
+    "primarySkills": [
+      "Software Testing",
+      "Playwright",
+      "Javascript",
+      "Cypress",
+      "Postman",
+      "Github"
+    ],
+    "secondarySkills": ["Zoho Tools"],
+    "profilePicture": "Yogesh Kumar B.jpg"
+  },
+  {
+    "empName": "Sunitha Chanda",
+    "empId": "1005",
+    "emailId": "sunitha.c@coe.zhapix.com",
+    "designation": "Technical Support Engineer",
+    "joiningDate": "1 Sep, 2025",
+    "status": "Active",
+    "primarySkills": [
+      "UI/UX Design",
+      "Figma",
+      "Canva",
+      "Draw.io",
+      "CorelDraw",
+      "HTML",
+      "CSS",
+      "Javascript",
+      "React"
+    ],
+    "secondarySkills": ["Zoho Platform"],
+    "profilePicture": "Sunitha Chanda.jpg"
+  },
+  {
+    "empName": "Vijayan Thanigaivelu",
+    "empId": "1001",
+    "emailId": "vijayan.t@zhapix.com",
+    "designation": "N/A",
+    "joiningDate": "N/A",
+    "status": "Active",
+    "primarySkills": ["zhapix"],
+    "secondarySkills": [],
+    "profilePicture": "Vijayan Thanigaivelu.jpg"
+  },
+  {
+    "empName": "Ronald Kevin",
+    "empId": "INT0016",
+    "emailId": "ronald.k@coe.zhapix.com",
+    "designation": "Fullstack Developer Intern",
+    "joiningDate": "1 Aug, 2025",
+    "status": "Active",
+    "primarySkills": [
+      "Web Development",
+      "Javascript",
+      "ReactJS",
+      "NodeJS",
+      "MongoDB",
+      "HTML",
+      "CSS",
+      "Postman"
+    ],
+    "secondarySkills": ["GCP-Firebase", "JEST"],
+    "profilePicture": "Ronald Kevin.jpg"
+  },
+  {
+    "empName": "Rudramoorthy",
+    "empId": "INT0015",
+    "emailId": "rudra.l@coe.zhapix.com",
+    "designation": "Fullstack Developer",
+    "joiningDate": "1 Aug, 2025",
+    "status": "Active",
+    "primarySkills": [
+      "Web Development",
+      "Javascript",
+      "ReactJS",
+      "NodeJS",
+      "MongoDB",
+      "HTML",
+      "CSS",
+      "Postman"
+    ],
+    "secondarySkills": ["JEST"],
+    "profilePicture": "Rudramoorthy.jpg"
+  }
+]
