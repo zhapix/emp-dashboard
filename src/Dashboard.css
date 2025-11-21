@@ -109,7 +109,6 @@ body.dark {
     display: flex;
     align-items: center;
     gap: 8px;
-    /* FINAL CURSOR FIX: Apply pointer cursor to the logo container */
     cursor: pointer;
 }
 
@@ -126,7 +125,7 @@ body.dark {
 }
 
 .dashboard-title {
-    /* FINAL CURSOR FIX: Prevents the blinking text caret */
+
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -136,4 +135,15 @@ body.dark {
 /* Target the user's name/email (which uses a Typography component) */
 .dashboard-header .MuiBox-root > .MuiTypography-root {
     user-select: none;
+}
+.dashboard-header {
+    display: flex;
+    justify-content: center;  
+    align-items: center;    
+    border-bottom: 1px solid #4a4a4a;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    
+    /* ADD gap to separate the three main header items: */
+    gap: 10px; 
 }
