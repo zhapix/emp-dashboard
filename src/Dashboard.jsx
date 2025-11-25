@@ -13,12 +13,11 @@ import {
     GitHub,
 } from '@mui/icons-material';
 
-// 🚨 NOTE: These imports assume you have corresponding files in the same directory.
 import './Dashboard.css';
-import EmployeeProfile from './EmployeeProfile'; 
+import EmployeeProfile from './EmployeeProfile';
 import './EmployeeProfile.css';
-import ProgramStatusBanner from './ProgramStatusBanner'; 
-import ProgramStatusPage from './ProgramStatusPage'; 
+import ProgramStatusBanner from './ProgramStatusBanner';
+import ProgramStatusPage from './ProgramStatusPage';
 import './ProgramStatusStyles.css';
 
 
@@ -48,26 +47,24 @@ const Card = ({ title, link, icon }) => {
 
 const Dashboard = () => {
     const [userEmail, setUserEmail] = useState('');
-    const [selectedProfileEmail, setSelectedProfileEmail] = useState(null); 
-    const [showProgramStatusPage, setShowProgramStatusPage] = useState(false); 
+    const [selectedProfileEmail, setSelectedProfileEmail] = useState(null);
+    const [showProgramStatusPage, setShowProgramStatusPage] = useState(false);
 
     useEffect(() => {
         const searchParamVals = new URLSearchParams(window.location.search);
-        setUserEmail(searchParamVals.get('userEmail') || ''); 
+        setUserEmail(searchParamVals.get('userEmail') || '');
     }, []);
 
     const profileInfoMapping = {
-        
-        
-        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg'}, 
+        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg'},
         'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B', avatarUrl: './yogesh.jpg' },
-        'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda', avatarUrl: './Sunitha.jpeg'}, 
+        'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda', avatarUrl: './Sunitha.jpeg'},
         'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu', avatarUrl: './vijayan.jpg' },
         'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi', avatarUrl: './Samruthha.png'},
         'ronald.k@coe.zhapix.com':{ name: 'Ronald Kevin', avatarUrl: './Kevin.png' },
         'rudra.l@coe.zhapix.com':{ name: 'Rudramoorthy', avatarUrl:'./Rudra.png' },
         'ashwathi.p@coe.zhapix.com':{ name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png'},
-       'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg' },
+        'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg' },
     };
 
     const normalizedEmail = userEmail.toLowerCase();
@@ -84,28 +81,23 @@ const Dashboard = () => {
         { title: 'Learn', link: 'https://irp.zhapix.com', icon: <MenuBookOutlined fontSize="large" /> },
     ];
 
-    // The getInitials function is no longer needed if we don't want the fallback.
-    // Keeping it just in case, but its return value is removed from the Avatar component.
     const getInitials = (email) => {
         if (!email) return '';
-        
-        // Use the first letter of the full name if available
+
         const nameToUse = currentUserProfile?.name;
         if (nameToUse) {
             return nameToUse.charAt(0).toUpperCase();
         }
-        
-        // Fallback to the first letter of the email
+
         return email.charAt(0).toUpperCase();
     };
 
     const handleEmailClick = (event) => {
         // Close other views before toggling profile view
-        setShowProgramStatusPage(false); 
+        setShowProgramStatusPage(false);
         // Toggles the EmployeeProfile view
         setSelectedProfileEmail(prevEmail => prevEmail ? null : normalizedEmail);
-        
-        // Remove focus from the button after click
+
         if (event && event.currentTarget) {
             event.currentTarget.blur();
         }
@@ -113,7 +105,7 @@ const Dashboard = () => {
 
     const handleProgramStatusClick = () => {
         // Close profile view
-        setSelectedProfileEmail(null); 
+        setSelectedProfileEmail(null);
         // Open Program Status view
         setShowProgramStatusPage(true);
     };
@@ -129,10 +121,10 @@ const Dashboard = () => {
         const selectedProfileAvatarUrl = selectedUserProfile?.avatarUrl || null;
 
         return (
-            <EmployeeProfile 
-                email={selectedProfileEmail} 
+            <EmployeeProfile
+                email={selectedProfileEmail}
                 onBack={() => setSelectedProfileEmail(null)}
-                avatarUrl={selectedProfileAvatarUrl} 
+                avatarUrl={selectedProfileAvatarUrl}
             />
         );
     }
@@ -142,23 +134,23 @@ const Dashboard = () => {
             <ProgramStatusPage onBack={handleBackFromProgramStatus} />
         );
     }
-    
+
     // --- Main Dashboard Rendering ---
 
     return (
         <div className="dashboard-container">
             <header
                 className="dashboard-header"
+                // Use flex and space-between to push content to the left and right edges
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
-                {/* Logo and Title */}
-                <div 
-                    className="dashboard-logo" 
+                {/* 1. Left Side: Logo and Title */}
+                <div
+                    className="dashboard-logo"
                     style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
-                    tabIndex={0} 
+                    tabIndex={0}
                     role="button"
-                    onClick={(e) => { 
-                        // Blurs element to prevent persistent outline on click
+                    onClick={(e) => {
                         if (e.currentTarget) e.currentTarget.blur();
                     }}
                     onKeyPress={(e) => {
@@ -168,9 +160,9 @@ const Dashboard = () => {
                     }}
                 >
                     <img alt="Zhapix Logo" className="logo-image" src="./logo.png" />
-                    <Typography 
-                        variant="h5" 
-                        component="h1" 
+                    <Typography
+                        variant="h5"
+                        component="h1"
                         className="dashboard-title"
                         sx={{ userSelect: 'none' }}
                     >
@@ -178,46 +170,58 @@ const Dashboard = () => {
                     </Typography>
                 </div>
 
-                {/* User Profile/Avatar Section */}
-                {userEmail && (
-                    <Box 
-                        sx={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            gap: 1,
-                            cursor: 'pointer',
-                        }}
-                        onClick={handleEmailClick}
-                        role="button"
-                        tabIndex={0}
-                        onKeyPress={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') handleEmailClick(e);
-                        }}
-                    >
-                        <Avatar 
-                            sx={{ bgcolor: '#4caf50' }} 
-                            src={avatarImage || ''}
-                        >
-                            {/* 🚫 CRITICAL CHANGE: Removed the fallback initial {getInitials(normalizedEmail)}.
-                                 Now, if the image fails, the green background will show, but no text. */}
-                        </Avatar>
-                        <Typography
+                {/* 2. Right Side: Program Status and User Profile */}
+                <Box
+                    className="header-actions"
+                    // Group the button and avatar, and align them
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '20px', // Space between the button and the profile
+                    }}
+                >
+                    {/* Program Status Button */}
+                    <ProgramStatusBanner onClick={handleProgramStatusClick} />
+
+                    {/* User Profile/Avatar Section */}
+                    {userEmail && (
+                        <Box
                             sx={{
-                                color: 'rgba(245, 245,245)',
-                                userSelect: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                                cursor: 'pointer',
+                            }}
+                            onClick={handleEmailClick}
+                            role="button"
+                            tabIndex={0}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') handleEmailClick(e);
                             }}
                         >
-                            {displayName}
-                        </Typography>
-                    </Box>
-                )}
+                            <Avatar
+                                sx={{ bgcolor: '#4caf50' }}
+                                src={avatarImage || ''}
+                            >
+                                {/* Fallback for Avatar is good practice */}
+                                {getInitials(normalizedEmail)}
+                            </Avatar>
+                            <Typography
+                                sx={{
+                                    color: 'rgba(245, 245,245)',
+                                    userSelect: 'none',
+                                }}
+                            >
+                                {displayName}
+                            </Typography>
+                        </Box>
+                    )}
+                </Box>
             </header>
 
-            {/* Content Area (Banner and Links Grid) */}
+            {/* Content Area (Links Grid) */}
             <div className="dashboard-content">
-                {/* Program Status Banner */}
-                <ProgramStatusBanner onClick={handleProgramStatusClick} />
-                
+               
                 {/* Links Grid */}
                 <main className="dashboard-grid">
                     {cards.map((card) => (
