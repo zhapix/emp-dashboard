@@ -1,30 +1,31 @@
-/* EmployeeProfile.css */
 
-/* --- New Wrapper for Side-by-Side Layout --- */
 .profile-view-wrapper {
     max-width: 900px; 
     margin: 80px auto; 
     padding: 24px; 
 }
 
+/* Desktop: Side-by-Side (Default) */
 .profile-view-container {
     display: flex; 
     align-items: stretch; 
-    gap: 20px;      
+    gap: 20px;       
 }
 
 /* --- 1. Main Details Table (Left Section) --- */
 .profile-card-container {
-   
-    overflow: hidden; /* Crucial for clipping child borders/shadows */
- 
+    /* Set an explicit width for the table container on desktop */
     min-width: 400px;
-    padding-bottom: 0px; /* Ensures no extra padding at the bottom */
+    flex-basis: 60%; /* Allow it to grow/shrink relative to the photo column */
+    flex-grow: 1;
+    overflow: hidden; /* Crucial for clipping child borders/shadows */
+    border-radius: 8px; /* Apply radius here, and clip children */
 }
 
 /* --- 2. Profile Photo Column (Right Section) --- */
 .profile-photo-column {
-    flex: 1; 
+    flex-basis: 40%;
+    flex-grow: 1; 
     background-color: #36495b;  
     border-radius: 8px;
     padding: auto;
@@ -33,31 +34,29 @@
     align-items: center;
     justify-content: center;
     min-height:300px; 
-
 }
 
-/* --- Profile Rows (Inside the main table) --- */
+
 .profile-row {
     display: flex;
     align-items: stretch;
     border-bottom: 1px solid #48617b; 
 }
 
+/* The last row border is not needed (it's covered by the container's radius) */
 .profile-row:last-child {
     border-bottom: none;
 }
 
-/* --- Shared Padding (Used by both label and value) --- */
+/* --- Shared Padding/Box-Sizing --- */
 .profile-label,
 .profile-value {
     padding: 12px 16px; 
     font-size: 16px;
     line-height: 1.5;
-    /* ✅ FIX 3: Ensures padding and border are included in the width */
     box-sizing: border-box; 
 }
 
-/* --- Left Column (Dark Label) --- */
 .profile-label {
     width: 40%;
     background-color: #36495b; 
@@ -72,11 +71,19 @@
     color: #333;
     word-break: break-word;
     border-left: 1px solid #ccc; 
-    /* ✅ FIX 4: Explicitly removes right border to prevent bleed/misalignment */
-    border-right: none;
 }
 
-/* ✅ FIX 5: Apply the border radius to the LAST row's cells for clean bottom corners */
+
+/* Top Row Radius */
+.profile-row:first-child .profile-label {
+    border-top-left-radius: 8px;
+}
+
+.profile-row:first-child .profile-value {
+    border-top-right-radius: 8px;
+}
+
+/* Bottom Row Radius (for the side-by-side layout) */
 .profile-row:last-child .profile-label {
     border-bottom-left-radius: 8px;
 }
@@ -84,10 +91,8 @@
 .profile-row:last-child .profile-value {
     border-bottom-right-radius: 8px;
 }
-
-
-/* --- Responsive Adjustments for Mobile (Stacks columns vertically) --- */
 @media (max-width: 768px) {
+    /* 1. Stack the main columns (Table on top, Photo below) */
     .profile-view-container {
         flex-direction: column; 
     }
@@ -96,27 +101,68 @@
         min-height: auto;
     }
     
+    /* Reset card container to be full width */
+    .profile-card-container {
+        min-width: unset;
+        width: 100%;
+        /* Remove inherited radius so we can apply radius per-row */
+        border-radius: 0; 
+    }
+
+    /* 2. Stack the label and value within each row (Label on top, Value below) */
     .profile-row {
         flex-direction: column; 
+        /* Ensure each row has a bottom border (since the container radius is gone) */
+        border-bottom: 1px solid #ccc; 
+    }
+
+    /* Reset width to 100% for stacked items */
+    .profile-label,
+    .profile-value {
+        width: 100%;
+        border-left: none; /* Remove left border */
     }
     
     .profile-label {
-        width: 100%;
+        /* Add a separator between the stacked label and value */
         border-bottom: 1px solid #48617b;
-        /* Remove radius on mobile stack */
-        border-bottom-left-radius: 0; 
     }
 
-    .profile-value {
-        width: 100%;
-        border-left: none; 
-        /* Apply radius to the bottom value cell on mobile */
-        border-bottom-right-radius: 8px;
+    /* Remove Desktop Corner Radii */
+    .profile-row:first-child .profile-label,
+    .profile-row:first-child .profile-value,
+    .profile-row:last-child .profile-label,
+    .profile-row:last-child .profile-value {
+        border-radius: 0;
     }
-    
-    /* Ensure the top-most label is still rounded on mobile */
+
+    /* Apply Radius to the TOP of the entire stacked table */
+    .profile-row:first-child {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
     .profile-row:first-child .profile-label {
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
+    }
+    
+    /* Apply Radius to the BOTTOM of the entire stacked table */
+    .profile-row:last-child {
+        /* Remove the row border because this is the last element */
+        border-bottom: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .profile-row:last-child .profile-value {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    /* Make the photo column full width and add some top margin */
+    .profile-photo-column {
+        width: 100%;
+        margin-top: 20px;
     }
 }

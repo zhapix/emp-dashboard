@@ -1,4 +1,6 @@
+/* ProgramStatus.css */
 
+/* --- Program Header --- */
 .program-status-header {
     /* FIX: Restore the dark background color from your application's theme */
     background-color: #2c3e50; 
@@ -6,7 +8,7 @@
     color: white; /* Ensure text is white */
     padding: 16px 20px;
     margin-bottom: 24px;
-    border-bottom: none; /* Removed subtle separator to match image */
+    border-bottom: none; 
 }
 
 /* Back button styles remain correct */
@@ -19,14 +21,37 @@
 }
 
 
-/* Program Status Table (Container) - Styles look correct for table appearance */
+/* --- Program Status Banner --- */
+.program-status-banner-container {
+    /* FIX: Set the blue color shown in the dashboard image (image_1928d9.png) */
+    background-color: #1976d2; 
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3); 
+    border-radius: 4px;
+    color: white; 
+    margin-bottom: 24px; 
+    max-width: 400px; 
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px; /* Added padding for banner content */
+    text-align: center; /* Center content within the banner */
+}
+
+/* Ensure consistent text styling - Looks correct */
+.program-status-banner-container .MuiTypography-h5 {
+    font-weight: bold;
+    color: inherit; 
+}
+
+
+/* --- Program Status Table Container (Desktop/Default) --- */
 .program-status-table-container {
     max-width: 95%;
     margin: 20px auto; 
     box-shadow: 0 3px 6px rgba(0,0,0,0.16); 
     border-radius: 4px;
-    overflow: hidden; 
+    overflow-x: hidden; /* Hide horizontal scroll by default */
 }
+
 
 /* Specific table styling for padding, alignment etc. - These look correct */
 .program-status-table th, 
@@ -38,6 +63,9 @@
 .program-status-table th {
     font-weight: bold;
     text-align: left;
+    /* Use a slightly different background for the header row */
+    background-color: #f8f8f8; 
+    color: #333;
 }
 
 /* Specific column alignment for status/date/date type - These look correct */
@@ -60,23 +88,38 @@
     line-height: 1.4;
 }
 
-/* Status icon colors and Date colors - These rely on Material UI props and CSS selectors, which are fine */
 
+/* -------------------------------------- */
+/* --- RESPONSIVE ADJUSTMENTS (Mobile) --- */
+/* -------------------------------------- */
 
-.program-status-banner-container {
-    /* FIX: Set the blue color shown in the dashboard image (image_1928d9.png) */
-    background-color: #1976d2; /* Changed from #4CAF50 to the blue color */
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3); /* Slightly darker shadow to make it pop */
-    border-radius: 4px;
-    color: white; 
-    margin-bottom: 24px; /* Increased margin for better separation from grid */
-    max-width: 400px; /* Increased width to match image layout better */
-    margin-left: auto;
-    margin-right: auto;
-}
+@media (max-width: 768px) {
+    
+    .program-status-header {
+        padding: 12px 10px; /* Smaller header padding on mobile */
+        margin-bottom: 15px;
+    }
 
-/* Ensure consistent text styling - Looks correct */
-.program-status-banner-container .MuiTypography-h5 {
-    font-weight: bold;
-    color: inherit; 
+    /* * FIX for Mobile Table: 
+    * Allow horizontal scrolling within the container 
+    * when the table content exceeds the viewport width.
+    */
+    .program-status-table-container {
+        max-width: 100%;
+        margin: 10px;
+        overflow-x: auto; /* IMPORTANT: Enables horizontal scroll on table */
+        box-shadow: none; /* Less shadow on mobile */
+        border-radius: 0;
+    }
+
+    /* Ensure the table itself does not shrink below a minimum comfortable width */
+    .program-status-table {
+        min-width: 600px; /* Forces the table to be wider than the container */
+    }
+
+    .program-status-table th, 
+    .program-status-table td {
+        padding: 8px 10px; /* Reduce padding on smaller screens */
+        font-size: 14px;
+    }
 }
