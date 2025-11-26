@@ -145,3 +145,9 @@ body.dark {
     /* ADD gap to separate the three main header items: */
     gap: 10px; 
 }
+.avatar-image {
+    width: 40px; /* Adjust this size as needed */
+    height: 40px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+}

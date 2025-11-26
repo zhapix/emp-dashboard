@@ -1,49 +1,83 @@
+/* Base Global Styling */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Changed page background color to match the darker theme */
+    background-color: #2f3b47; 
+    margin: 0;
+    padding: 0;
+}
 
 .profile-view-wrapper {
-    max-width: 900px; 
-    margin: 80px auto; 
-    padding: 24px; 
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 24px;
 }
 
 /* Desktop: Side-by-Side (Default) */
 .profile-view-container {
-    display: flex; 
-    align-items: stretch; 
-    gap: 20px;       
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
 }
 
 /* --- 1. Main Details Table (Left Section) --- */
 .profile-card-container {
-    /* Set an explicit width for the table container on desktop */
     min-width: 400px;
-    flex-basis: 60%; /* Allow it to grow/shrink relative to the photo column */
+    flex-basis: 60%; 
     flex-grow: 1;
-    overflow: hidden; /* Crucial for clipping child borders/shadows */
-    border-radius: 8px; /* Apply radius here, and clip children */
+    overflow: hidden; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for dark background */
+    background-color: #36495b; /* Dark blue background for the entire card */
+    border: 1px solid #4caf50; /* Green border for the card */
 }
 
 /* --- 2. Profile Photo Column (Right Section) --- */
 .profile-photo-column {
     flex-basis: 40%;
-    flex-grow: 1; 
-    background-color: #36495b;  
+    flex-grow: 1;
+    background-color: #36495b; /* Dark blue background */
     border-radius: 8px;
-    padding: auto;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height:300px; 
+    min-height: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* --- FIX: Override Material UI Avatar's internal image style --- */
+/* Target the actual <img> tag inside the Avatar (which is inside profile-photo-column) */
+.profile-photo-column img {
+    /* Ensures the image covers the avatar area without losing aspect ratio */
+    object-fit: cover !important; 
+    
+    /* Applies the 90% scaling */
+    transform: scale(1.0); /* Resetting scale to 1.0 based on latest image sample */
+    transition: transform 0.3s ease;
+}
+
+
+.profile-photo-column h3 {
+    margin-top: 10px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.profile-photo-column p {
+    opacity: 0.8;
+    font-size: 1rem;
 }
 
 
 .profile-row {
     display: flex;
     align-items: stretch;
-    border-bottom: 1px solid #48617b; 
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1); /* Subtle dashed white line */
 }
 
-/* The last row border is not needed (it's covered by the container's radius) */
 .profile-row:last-child {
     border-bottom: none;
 }
@@ -51,26 +85,26 @@
 /* --- Shared Padding/Box-Sizing --- */
 .profile-label,
 .profile-value {
-    padding: 12px 16px; 
+    padding: 12px 16px;
     font-size: 16px;
     line-height: 1.5;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 .profile-label {
     width: 40%;
-    background-color: #36495b; 
+    background-color: #36495b; /* Dark blue background for labels */
     font-weight: bold;
     color: white;
 }
 
-/* --- Right Column (White Value) --- */
+/* --- Right Column (Darker Blue Value) --- */
 .profile-value {
     width: 60%;
-    background-color: white; 
-    color: #333;
+    background-color: #2f3e4e; /* Darker blue background for values for contrast */
+    color: #ffffff; /* White text for values */
     word-break: break-word;
-    border-left: 1px solid #ccc; 
+    border-left: 1px solid #48617b; /* Light gray border between label and value */
 }
 
 
@@ -91,40 +125,47 @@
 .profile-row:last-child .profile-value {
     border-bottom-right-radius: 8px;
 }
+
+/* --- MOBILE STYLING --- */
 @media (max-width: 768px) {
+    .profile-view-wrapper {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
     /* 1. Stack the main columns (Table on top, Photo below) */
     .profile-view-container {
-        flex-direction: column; 
+        flex-direction: column;
     }
 
     .profile-photo-column {
         min-height: auto;
+        order: 2; 
+        margin-top: 20px;
     }
-    
-    /* Reset card container to be full width */
+
     .profile-card-container {
+        order: 1; 
         min-width: unset;
         width: 100%;
-        /* Remove inherited radius so we can apply radius per-row */
-        border-radius: 0; 
+        border-radius: 0;
     }
 
     /* 2. Stack the label and value within each row (Label on top, Value below) */
     .profile-row {
-        flex-direction: column; 
-        /* Ensure each row has a bottom border (since the container radius is gone) */
-        border-bottom: 1px solid #ccc; 
+        flex-direction: column;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1); /* Subtle dashed white line */
     }
 
     /* Reset width to 100% for stacked items */
     .profile-label,
     .profile-value {
         width: 100%;
-        border-left: none; /* Remove left border */
+        border-left: none; 
+        padding: 10px 16px; 
     }
-    
+
     .profile-label {
-        /* Add a separator between the stacked label and value */
         border-bottom: 1px solid #48617b;
     }
 
@@ -137,22 +178,14 @@
     }
 
     /* Apply Radius to the TOP of the entire stacked table */
-    .profile-row:first-child {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-
     .profile-row:first-child .profile-label {
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
     }
-    
+
     /* Apply Radius to the BOTTOM of the entire stacked table */
     .profile-row:last-child {
-        /* Remove the row border because this is the last element */
         border-bottom: none;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
     }
 
     .profile-row:last-child .profile-value {
@@ -160,9 +193,10 @@
         border-bottom-right-radius: 8px;
     }
 
-    /* Make the photo column full width and add some top margin */
+    /* Photo column on mobile */
     .profile-photo-column {
         width: 100%;
-        margin-top: 20px;
+        padding: 30px 20px;
+        margin-top: 0;
     }
 }
