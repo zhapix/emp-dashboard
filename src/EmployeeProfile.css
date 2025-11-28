@@ -1,3 +1,5 @@
+/* --- GLOBAL STYLING (From Previous Context) --- */
+
 /* Base Global Styling */
 body {
     font-family: 'Inter', sans-serif;
@@ -7,11 +9,32 @@ body {
     padding: 0;
 }
 
+/* --- PROFILE VIEW STYLING --- */
+
 .profile-view-wrapper {
     max-width: 900px;
     margin: 80px auto;
     padding: 24px;
 }
+
+/* Style for the back button's wrapper (assuming class="profile-back-link" is added to the Box) */
+.profile-back-link {
+    margin-bottom: 16px; 
+    padding: 0;
+}
+
+.profile-back-link button {
+    font-size: 1rem;
+    color: rgba(241, 247, 242, 0.9); 
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.profile-back-link button:hover {
+    color: #4caf50; 
+    background-color: transparent; 
+}
+
 
 /* Desktop: Side-by-Side (Default) */
 .profile-view-container {
@@ -53,9 +76,10 @@ body {
 .profile-photo-column img {
     /* Ensures the image covers the avatar area without losing aspect ratio */
     object-fit: cover !important; 
-    
-    /* Applies the 90% scaling */
-    transform: scale(1.0); /* Resetting scale to 1.0 based on latest image sample */
+    width: auto;
+    scale:95%;
+    /* Set a slightly larger scale to guarantee the image covers the entire circular boundary */
+    transform: scale(1.05); 
     transition: transform 0.3s ease;
 }
 
@@ -198,5 +222,6 @@ body {
         width: 100%;
         padding: 30px 20px;
         margin-top: 0;
+        
     }
 }

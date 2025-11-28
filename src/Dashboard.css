@@ -71,7 +71,7 @@ body.dark {
 
 .card:hover {
     background-color: #40603f;
-    box-shadow: 0 0 10px #4caf50;
+   /* box-shadow: 0 0 10px #4caf50;*/
 }
 
 
