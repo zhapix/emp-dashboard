@@ -1,82 +1,147 @@
-/* EmployeeProfile.css */
+/* --- GLOBAL STYLING (From Previous Context) --- */
 
-/* --- New Wrapper for Side-by-Side Layout --- */
-.profile-view-wrapper {
-    max-width: 900px; 
-    margin: 80px auto; 
-    padding: 24px; 
+/* Base Global Styling */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Changed page background color to match the darker theme */
+    background-color: #2f3b47; 
+    margin: 0;
+    padding: 0;
 }
 
+/* --- PROFILE VIEW STYLING --- */
+
+.profile-view-wrapper {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 24px;
+}
+
+/* Style for the back button's wrapper (assuming class="profile-back-link" is added to the Box) */
+.profile-back-link {
+    margin-bottom: 16px; 
+    padding: 0;
+}
+
+.profile-back-link button {
+    font-size: 1rem;
+    color: rgba(241, 247, 242, 0.9); 
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.profile-back-link button:hover {
+    color: #4caf50; 
+    background-color: transparent; 
+}
+
+
+/* Desktop: Side-by-Side (Default) */
 .profile-view-container {
-    display: flex; 
-    align-items: stretch; 
-    gap: 20px;      
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
 }
 
 /* --- 1. Main Details Table (Left Section) --- */
 .profile-card-container {
-   
-    overflow: hidden; /* Crucial for clipping child borders/shadows */
- 
     min-width: 400px;
-    padding-bottom: 0px; /* Ensures no extra padding at the bottom */
+    flex-basis: 60%; 
+    flex-grow: 1;
+    overflow: hidden; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for dark background */
+    background-color: #36495b; /* Dark blue background for the entire card */
+    border: 1px solid #4caf50; /* Green border for the card */
 }
 
 /* --- 2. Profile Photo Column (Right Section) --- */
 .profile-photo-column {
-    flex: 1; 
-    background-color: #36495b;  
+    flex-basis: 40%;
+    flex-grow: 1;
+    background-color: #36495b; /* Dark blue background */
     border-radius: 8px;
-    padding: auto;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height:300px; 
-
+    min-height: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
 }
 
-/* --- Profile Rows (Inside the main table) --- */
+/* --- FIX: Override Material UI Avatar's internal image style --- */
+/* Target the actual <img> tag inside the Avatar (which is inside profile-photo-column) */
+.profile-photo-column img {
+    /* Ensures the image covers the avatar area without losing aspect ratio */
+    object-fit: cover !important; 
+    width: auto;
+    scale:95%;
+    /* Set a slightly larger scale to guarantee the image covers the entire circular boundary */
+    transform: scale(1.05); 
+    transition: transform 0.3s ease;
+}
+
+
+.profile-photo-column h3 {
+    margin-top: 10px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.profile-photo-column p {
+    opacity: 0.8;
+    font-size: 1rem;
+}
+
+
 .profile-row {
     display: flex;
     align-items: stretch;
-    border-bottom: 1px solid #48617b; 
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1); /* Subtle dashed white line */
 }
 
 .profile-row:last-child {
     border-bottom: none;
 }
 
-/* --- Shared Padding (Used by both label and value) --- */
+/* --- Shared Padding/Box-Sizing --- */
 .profile-label,
 .profile-value {
-    padding: 12px 16px; 
+    padding: 12px 16px;
     font-size: 16px;
     line-height: 1.5;
-    /* ✅ FIX 3: Ensures padding and border are included in the width */
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
-/* --- Left Column (Dark Label) --- */
 .profile-label {
     width: 40%;
-    background-color: #36495b; 
+    background-color: #36495b; /* Dark blue background for labels */
     font-weight: bold;
     color: white;
 }
 
-/* --- Right Column (White Value) --- */
+/* --- Right Column (Darker Blue Value) --- */
 .profile-value {
     width: 60%;
-    background-color: white; 
-    color: #333;
+    background-color: #2f3e4e; /* Darker blue background for values for contrast */
+    color: #ffffff; /* White text for values */
     word-break: break-word;
-    border-left: 1px solid #ccc; 
-    /* ✅ FIX 4: Explicitly removes right border to prevent bleed/misalignment */
-    border-right: none;
+    border-left: 1px solid #48617b; /* Light gray border between label and value */
 }
 
-/* ✅ FIX 5: Apply the border radius to the LAST row's cells for clean bottom corners */
+
+/* Top Row Radius */
+.profile-row:first-child .profile-label {
+    border-top-left-radius: 8px;
+}
+
+.profile-row:first-child .profile-value {
+    border-top-right-radius: 8px;
+}
+
+/* Bottom Row Radius (for the side-by-side layout) */
 .profile-row:last-child .profile-label {
     border-bottom-left-radius: 8px;
 }
@@ -85,38 +150,78 @@
     border-bottom-right-radius: 8px;
 }
 
-
-/* --- Responsive Adjustments for Mobile (Stacks columns vertically) --- */
+/* --- MOBILE STYLING --- */
 @media (max-width: 768px) {
+    .profile-view-wrapper {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    /* 1. Stack the main columns (Table on top, Photo below) */
     .profile-view-container {
-        flex-direction: column; 
+        flex-direction: column;
     }
 
     .profile-photo-column {
         min-height: auto;
-    }
-    
-    .profile-row {
-        flex-direction: column; 
-    }
-    
-    .profile-label {
-        width: 100%;
-        border-bottom: 1px solid #48617b;
-        /* Remove radius on mobile stack */
-        border-bottom-left-radius: 0; 
+        order: 2; 
+        margin-top: 20px;
     }
 
+    .profile-card-container {
+        order: 1; 
+        min-width: unset;
+        width: 100%;
+        border-radius: 0;
+    }
+
+    /* 2. Stack the label and value within each row (Label on top, Value below) */
+    .profile-row {
+        flex-direction: column;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1); /* Subtle dashed white line */
+    }
+
+    /* Reset width to 100% for stacked items */
+    .profile-label,
     .profile-value {
         width: 100%;
         border-left: none; 
-        /* Apply radius to the bottom value cell on mobile */
-        border-bottom-right-radius: 8px;
+        padding: 10px 16px; 
     }
-    
-    /* Ensure the top-most label is still rounded on mobile */
+
+    .profile-label {
+        border-bottom: 1px solid #48617b;
+    }
+
+    /* Remove Desktop Corner Radii */
+    .profile-row:first-child .profile-label,
+    .profile-row:first-child .profile-value,
+    .profile-row:last-child .profile-label,
+    .profile-row:last-child .profile-value {
+        border-radius: 0;
+    }
+
+    /* Apply Radius to the TOP of the entire stacked table */
     .profile-row:first-child .profile-label {
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
+    }
+
+    /* Apply Radius to the BOTTOM of the entire stacked table */
+    .profile-row:last-child {
+        border-bottom: none;
+    }
+
+    .profile-row:last-child .profile-value {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    /* Photo column on mobile */
+    .profile-photo-column {
+        width: 100%;
+        padding: 30px 20px;
+        margin-top: 0;
+        
     }
 }
