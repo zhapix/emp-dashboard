@@ -1,65 +1,60 @@
-/* --- GLOBAL STYLING (From Previous Context) --- */
-
-/* Base Global Styling */
+/* --- GLOBAL STYLING --- */
 body {
     font-family: 'Inter', sans-serif;
-    /* Changed page background color to match the darker theme */
     background-color: #2f3b47; 
     margin: 0;
     padding: 0;
 }
 
-/* --- PROFILE VIEW STYLING --- */
-
+/* --- PROFILE VIEW WRAPPER & BACK BUTTON --- */
 .profile-view-wrapper {
     max-width: 900px;
     margin: 80px auto;
     padding: 24px;
 }
 
-/* Style for the back button's wrapper (assuming class="profile-back-link" is added to the Box) */
 .profile-back-link {
     margin-bottom: 16px; 
     padding: 0;
 }
 
-.profile-back-link button {
+/* Styling for the MUI Button component */
+.profile-view-wrapper > .MuiBox-root > button { 
     font-size: 1rem;
     color: rgba(241, 247, 242, 0.9); 
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
-.profile-back-link button:hover {
+.profile-view-wrapper > .MuiBox-root > button:hover {
     color: #4caf50; 
     background-color: transparent; 
 }
 
-
-/* Desktop: Side-by-Side (Default) */
+/* --- DESKTOP/DEFAULT LAYOUT (Side-by-Side) --- */
 .profile-view-container {
     display: flex;
     align-items: stretch;
     gap: 20px;
 }
 
-/* --- 1. Main Details Table (Left Section) --- */
+/* 1. Main Details Table (Left Section) */
 .profile-card-container {
     min-width: 400px;
     flex-basis: 60%; 
     flex-grow: 1;
     overflow: hidden; 
     border-radius: 8px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for dark background */
-    background-color: #36495b; /* Dark blue background for the entire card */
-    border: 1px solid #4caf50; /* Green border for the card */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: #36495b; /* Label background */
+    border: 1px solid #4caf50;
 }
 
-/* --- 2. Profile Photo Column (Right Section) --- */
+/* 2. Profile Photo Column (Right Section) */
 .profile-photo-column {
     flex-basis: 40%;
     flex-grow: 1;
-    background-color: #36495b; /* Dark blue background */
+    background-color: #36495b;
     border-radius: 8px;
     padding: 20px;
     display: flex;
@@ -71,42 +66,28 @@ body {
     color: white;
 }
 
-/* --- FIX: Override Material UI Avatar's internal image style --- */
-/* Target the actual <img> tag inside the Avatar (which is inside profile-photo-column) */
-.profile-photo-column img {
-    /* Ensures the image covers the avatar area without losing aspect ratio */
+/* Avatar Image FIXES: Ensure image covers the avatar circle correctly */
+.profile-photo-column .MuiAvatar-root img {
+    /* Use original property for the MUI Avatar's image element */
     object-fit: cover !important; 
-    width: auto;
-    scale:95%;
-    /* Set a slightly larger scale to guarantee the image covers the entire circular boundary */
-    transform: scale(1.05); 
-    transition: transform 0.3s ease;
+    width: 100% !important; /* Ensure the image fills the avatar container */
+    height: 100% !important;
+    transform: none; /* Removed unnecessary scale/transform */
+    transition: none;
 }
 
-
-.profile-photo-column h3 {
-    margin-top: 10px;
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-.profile-photo-column p {
-    opacity: 0.8;
-    font-size: 1rem;
-}
-
-
+/* Table Rows */
 .profile-row {
-    display: flex;
+    display: flex; 
     align-items: stretch;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1); /* Subtle dashed white line */
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .profile-row:last-child {
     border-bottom: none;
 }
 
-/* --- Shared Padding/Box-Sizing --- */
+/* Shared Padding/Box-Sizing */
 .profile-label,
 .profile-value {
     padding: 12px 16px;
@@ -117,22 +98,22 @@ body {
 
 .profile-label {
     width: 40%;
-    background-color: #36495b; /* Dark blue background for labels */
+    background-color: #36495b;
     font-weight: bold;
     color: white;
 }
 
-/* --- Right Column (Darker Blue Value) --- */
+/* Right Column (Darker Blue Value) */
 .profile-value {
     width: 60%;
-    background-color: #2f3e4e; /* Darker blue background for values for contrast */
-    color: #ffffff; /* White text for values */
+    background-color: #2f3e4e; /* Value background - slightly darker */
+    color: #ffffff;
     word-break: break-word;
-    border-left: 1px solid #48617b; /* Light gray border between label and value */
+    border-left: 1px solid #48617b;
 }
 
 
-/* Top Row Radius */
+/* Desktop/Default Radius Control */
 .profile-row:first-child .profile-label {
     border-top-left-radius: 8px;
 }
@@ -141,7 +122,6 @@ body {
     border-top-right-radius: 8px;
 }
 
-/* Bottom Row Radius (for the side-by-side layout) */
 .profile-row:last-child .profile-label {
     border-bottom-left-radius: 8px;
 }
@@ -150,7 +130,26 @@ body {
     border-bottom-right-radius: 8px;
 }
 
-/* --- MOBILE STYLING --- */
+
+/* ================================================================== */
+/* -------------------- TABLET LANDSCAPE (769px to 1024px) -------------------- */
+/* ================================================================== */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .profile-view-wrapper {
+        max-width: 740px; 
+        padding: 16px;
+    }
+    
+    .profile-card-container {
+        min-width: 300px; 
+    }
+}
+
+
+/* ================================================================== */
+/* -------------------- MOBILE/TABLET PORTRAIT (MAX 768px) -------------------- */
+/* Stacks main columns AND label/value rows. */
+/* ================================================================== */
 @media (max-width: 768px) {
     .profile-view-wrapper {
         margin: 20px auto;
@@ -166,62 +165,60 @@ body {
         min-height: auto;
         order: 2; 
         margin-top: 20px;
+        width: 100%;
+        padding: 30px 20px;
     }
 
     .profile-card-container {
         order: 1; 
         min-width: unset;
         width: 100%;
-        border-radius: 0;
+        /* No overall radius here; let rows manage it */
     }
-
+    
     /* 2. Stack the label and value within each row (Label on top, Value below) */
     .profile-row {
         flex-direction: column;
-        border-bottom: 1px dashed rgba(255, 255, 255, 0.1); /* Subtle dashed white line */
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
     }
 
-    /* Reset width to 100% for stacked items */
+    /* Reset width to 100% for stacked items and remove left border */
     .profile-label,
     .profile-value {
         width: 100%;
         border-left: none; 
         padding: 10px 16px; 
+        border-radius: 0 !important; /* Crucial: Reset individual row corners */
     }
 
     .profile-label {
         border-bottom: 1px solid #48617b;
     }
 
-    /* Remove Desktop Corner Radii */
-    .profile-row:first-child .profile-label,
-    .profile-row:first-child .profile-value,
-    .profile-row:last-child .profile-label,
-    .profile-row:last-child .profile-value {
-        border-radius: 0;
-    }
-
-    /* Apply Radius to the TOP of the entire stacked table */
+    /* Apply Radius to the TOP of the entire stacked table block */
     .profile-row:first-child .profile-label {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        border-top-left-radius: 8px !important;
+        border-top-right-radius: 8px !important;
+    }
+    
+    /* Ensure the second element in the first row is flat */
+    .profile-row:first-child .profile-value {
+        border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important; 
     }
 
-    /* Apply Radius to the BOTTOM of the entire stacked table */
+    /* Apply Radius to the BOTTOM of the entire stacked table block */
     .profile-row:last-child {
         border-bottom: none;
     }
-
+    
     .profile-row:last-child .profile-value {
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px !important;
+        border-bottom-right-radius: 8px !important;
     }
 
-    /* Photo column on mobile */
-    .profile-photo-column {
-        width: 100%;
-        padding: 30px 20px;
-        margin-top: 0;
-        
+    /* Ensure the first element in the last row is flat (if the list has multiple rows) */
+    .profile-row:last-child .profile-label {
+        border-bottom-left-radius: 0 !important;
     }
 }

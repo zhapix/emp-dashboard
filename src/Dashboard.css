@@ -1,3 +1,6 @@
+/* ================================================= */
+/* BASE STYLES & PROGRAM STATUS FIXES */
+/* ================================================= */
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -19,89 +22,16 @@ body.dark {
     padding: 20px;
     background: #324155;
     border-radius: 12px;
-    min-height: 40px; 
+    min-height: 40px;
 }
-
 
 .dashboard-header {
     display: flex;
     justify-content: space-between;
-    align-items: center; 	
+    align-items: center;
     border-bottom: 1px solid #4a4a4a;
     padding-bottom: 12px;
     margin-bottom: 24px;
-}
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0px;
-}
-
-.card {
-    background-color: #2f3e4e;
-    border: 1px solid #4caf50;
-    border-radius: 12px;
-    padding: 40px;
-    margin: 40px;
-    min-height: 46px;
-    cursor: pointer;
-
-    display: flex;
-    flex-direction: row; 	
-    align-items: center; 	
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #ffffff;
-
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    text-align: left; 	
-}
-
-.card-icon {
-    font-size: 7em;
-    color: #f7f3f3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-    margin-right: 0.25rem;
-}
-
-.card:hover {
-    background-color: #40603f;
-   /* box-shadow: 0 0 10px #4caf50;*/
-}
-
-
-.card-link {
-    font-size: 14px;
-    color: #d4f5d4;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.card-link:hover {
-    text-decoration: underline;
-}
-
-
-/* Responsive layout for smaller screens */
-@media (max-width: 800px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-container {
-        margin: 20px;
-    }
 }
 
 .dashboard-logo {
@@ -122,32 +52,159 @@ body.dark {
     font-weight: 600;
 }
 
-.dashboard-title {
+/* --- Program Status & User Info Fixes (Global) --- */
 
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+/* 1. REQUIRED FIX: Program Status Button (Applies to both) */
+.program-status-desktop,
+.program-status-mobile-item a {
+    background-color: transparent !important;
+    color: white !important;
+    padding: 8px 15px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Target the user's name/email (which uses a Typography component) */
-.dashboard-header .MuiBox-root > .MuiTypography-root {
-    user-select: none;
+.program-status-desktop:hover,
+.program-status-mobile-item a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
-.dashboard-header {
+
+/* 2. REQUIRED FIX: Username Text (Desktop visibility by default) */
+.profile-avatar-desktop .username-text {
+    display: inline;
+    /* Visible on desktop */
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+
+/* --- Grid Styling (Desktop: 2x3 Grid) --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+}
+
+.card {
+    background-color: #2f3e4e;
+    border: 1px solid #4caf50;
+    border-radius: 12px;
+    padding: 40px;
+    /* High padding on desktop */
+    margin: 40px;
+    /* High margin on desktop */
+    min-height: 46px;
+    cursor: pointer;
+
     display: flex;
-    justify-content: center;  
-    align-items: center;    
-    border-bottom: 1px solid #4a4a4a;
-    padding-bottom: 12px;
-    margin-bottom: 24px;
-    
-    /* ADD gap to separate the three main header items: */
-    gap: 10px; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
+
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
 }
-.avatar-image {
-    width: 40px; /* Adjust this size as needed */
-    height: 40px;
-    border-radius: 50%; /* Makes the image circular */
-    object-fit: cover; /* Ensures the image covers the area without distortion */
+
+.card-icon {
+    font-size: 7em;
+    color: #f7f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    margin-right: 0.25rem;
+}
+
+.card:hover {
+    background-color: #40603f;
+}
+
+/* --- Mobile Menu Structure --- */
+
+/* Hamburger Menu Icon: Hidden by default (desktop view) */
+.hamburger-menu-mobile {
+    display: none !important;
+}
+
+/* Mobile Menu Dropdown Styles (Appears when showMobileMenu is true) */
+.mobile-menu-dropdown {
+    background: #324155;
+    padding: 0 20px;
+    /* Uses negative margin to align with the header width inside the container */
+    margin-top: -24px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 900px;
+    /* Matches dashboard-container max-width */
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.program-status-mobile-item {
+    text-align: right;
+    padding: 10px 0;
+    
+}
+
+/* ================================================= */
+/* MEDIA QUERIES (Mobile Layout)                     */
+/* ================================================= */
+
+/* --- Tablet / Large Mobile View (Max Width 800px) --- */
+@media (max-width: 800px) {
+
+    /* 1. HIDE: Program Status Button (Desktop version) */
+    .program-status-desktop {
+        display: none !important;
+    }
+
+    /* 2. HIDE: User Profile (Username + Avatar) on Desktop */
+    .profile-avatar-desktop {
+        display: none !important;
+    }
+
+    /* CRITICAL: HIDE Username TEXT (Only avatar should show in the mobile header block) */
+    .profile-avatar-desktop .username-text {
+        display: none !important;
+    }
+
+    /* 3. SHOW: Hamburger Menu Icon */
+    /* Note: The display for hamburger is handled by the MUI sx prop in JSX,
+       but this acts as a fallback/reinforcement for the class */
+    .hamburger-menu-mobile {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* GRID CHANGES (Tablet View: 2-column) */
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* --- Small Mobile View (Max Width 480px) --- */
+@media (max-width: 480px) {
+
+    /* GRID CHANGES (Vertical Stack: 1-column) */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-container {
+        margin: 20px;
+    }
+
+    /* CRITICAL FIX: Reduce Card Margin/Padding to prevent horizontal overflow */
+    .card {
+        padding: 20px;
+        margin: 10px 0;
+    }
 }
