@@ -3,6 +3,7 @@ import {
     Typography,
     Box,
     Avatar,
+    IconButton,
 } from '@mui/material';
 import {
     ChatBubbleOutline,
@@ -11,6 +12,7 @@ import {
     PeopleOutline,
     MenuBookOutlined,
     GitHub,
+    Menu as MenuIcon,
 } from '@mui/icons-material';
 
 import './Dashboard.css';
@@ -49,6 +51,7 @@ const Dashboard = () => {
     const [userEmail, setUserEmail] = useState('');
     const [selectedProfileEmail, setSelectedProfileEmail] = useState(null);
     const [showProgramStatusPage, setShowProgramStatusPage] = useState(false);
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
 
     useEffect(() => {
         const searchParamVals = new URLSearchParams(window.location.search);
@@ -86,16 +89,19 @@ const Dashboard = () => {
 
         const nameToUse = currentUserProfile?.name;
         if (nameToUse) {
-            return nameToUse.charAt(0).toUpperCase();
+            const names = nameToUse.split(' ');
+            if (names.length > 1) {
+                return names[0].charAt(0).toUpperCase() + names[names.length - 1].charAt(0).toUpperCase();
+            }
+            return names[0].charAt(0).toUpperCase();
         }
 
         return email.charAt(0).toUpperCase();
     };
 
     const handleEmailClick = (event) => {
-        // Close other views before toggling profile view
         setShowProgramStatusPage(false);
-        // Toggles the EmployeeProfile view
+        setShowMobileMenu(false);
         setSelectedProfileEmail(prevEmail => prevEmail ? null : normalizedEmail);
 
         if (event && event.currentTarget) {
@@ -104,14 +110,19 @@ const Dashboard = () => {
     };
 
     const handleProgramStatusClick = () => {
-        // Close profile view
         setSelectedProfileEmail(null);
-        // Open Program Status view
+        setShowMobileMenu(false);
         setShowProgramStatusPage(true);
     };
 
     const handleBackFromProgramStatus = () => {
         setShowProgramStatusPage(false);
+    };
+
+    const handleHamburgerClick = () => {
+        setSelectedProfileEmail(null);
+        setShowProgramStatusPage(false);
+        setShowMobileMenu(prev => !prev);
     };
 
     // --- Conditional Rendering for Profile and Status Pages ---
@@ -141,22 +152,27 @@ const Dashboard = () => {
         <div className="dashboard-container">
             <header
                 className="dashboard-header"
-                // Use flex and space-between to push content to the left and right edges
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center',
+                    p: { xs: 1, md: 2 } 
+                }}
             >
                 {/* 1. Left Side: Logo and Title */}
                 <div
                     className="dashboard-logo"
-                    style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+                    style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '10px',
+                        flexShrink: 1 
+                    }}
                     tabIndex={0}
                     role="button"
-                    onClick={(e) => {
-                        if (e.currentTarget) e.currentTarget.blur();
-                    }}
+                    onClick={(e) => e.currentTarget.blur()}
                     onKeyPress={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            if (e.currentTarget) e.currentTarget.blur();
-                        }
+                        if (e.key === 'Enter' || e.key === ' ') e.currentTarget.blur();
                     }}
                 >
                     <img alt="Zhapix Logo" className="logo-image" src="./logo.png" />
@@ -164,30 +180,38 @@ const Dashboard = () => {
                         variant="h5"
                         component="h1"
                         className="dashboard-title"
-                        sx={{ userSelect: 'none' }}
+                        sx={{ userSelect: 'none', whiteSpace: 'nowrap' }}
                     >
                         Dashboard
                     </Typography>
                 </div>
 
-                {/* 2. Right Side: Program Status and User Profile */}
+                {/* 2. Right Side: Actions (Desktop/Mobile) */}
                 <Box
                     className="header-actions"
-                    // Group the button and avatar, and align them
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '20px', // Space between the button and the profile
+                        gap: { xs: '10px', md: '20px' },
+                        ml: 'auto' 
                     }}
                 >
-                    {/* Program Status Button */}
-                    <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                    {/* Program Status Button - Desktop Only (Hidden on mobile via CSS/sx prop) */}
+                    <Box 
+                        className="program-status-desktop"
+                        // MUI utility for hiding on small screens
+                        sx={{ display: { xs: 'none', md: 'block' } }}
+                    >
+                        <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                    </Box>
 
-                    {/* User Profile/Avatar Section */}
+                    {/* User Profile/Avatar Section - Desktop ONLY (Username + Avatar) */}
                     {userEmail && (
                         <Box
+                            className="profile-avatar-desktop"
                             sx={{
-                                display: 'flex',
+                                // Show on desktop (md and up)
+                                display: { xs: 'none', md: 'flex' }, 
                                 alignItems: 'center',
                                 gap: 1,
                                 cursor: 'pointer',
@@ -199,30 +223,91 @@ const Dashboard = () => {
                                 if (e.key === 'Enter' || e.key === ' ') handleEmailClick(e);
                             }}
                         >
-                            <Avatar
-                                sx={{ bgcolor: '#4caf50' }}
-                                src={avatarImage || ''}
-                            >
-                                {/* Fallback for Avatar is good practice */}
-                                {getInitials(normalizedEmail)}
-                            </Avatar>
+                            {/* REQUIRED FIX: Username Text (Visible on desktop) */}
                             <Typography
+                                variant="subtitle1"
+                                component="span"
+                                className="username-text" /* Class targeted by CSS for hiding on mobile */
                                 sx={{
-                                    color: 'rgba(245, 245,245)',
-                                    userSelect: 'none',
+                                    color: 'white',
+                                    whiteSpace: 'nowrap',
                                 }}
                             >
                                 {displayName}
                             </Typography>
+                            
+                            <Avatar 
+                                sx={{ bgcolor: '#4caf50' }} 
+                                src={avatarImage || ''}
+                            >
+                                {getInitials(normalizedEmail)}
+                            </Avatar>
                         </Box>
                     )}
+                    
+                    {/* --- Mobile Profile Block (Avatar ONLY) --- 
+                        REQUIRED: Username is omitted here, only the avatar shows.
+                    */}
+                    {userEmail && (
+                        <Box
+                            className="header-mobile-profile"
+                            onClick={handleEmailClick}
+                            role="button"
+                            tabIndex={0}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') handleEmailClick(e);
+                            }}
+                            sx={{
+                                // Show on mobile screens (xs)
+                                display: { xs: 'flex', md: 'none' }, 
+                                alignItems: 'center',
+                                gap: 1,
+                                cursor: 'pointer',
+                            }}
+                        >
+                            <Avatar
+                                src={avatarImage || ''}
+                            >
+                                {getInitials(normalizedEmail)}
+                            </Avatar>
+                        </Box>
+                    )}
+                    {/* --- End Mobile Profile Block --- */}
+
+
+                    {/* Hamburger Menu Icon - Mobile Only */}
+                    <IconButton
+                        className="hamburger-menu-mobile"
+                        aria-label="menu"
+                        onClick={handleHamburgerClick}
+                        sx={{
+                            color: '#fff',
+                            display: { xs: 'block', md: 'none' }, 
+                            p: 0, ml: 1 
+                        }}
+                    >
+                        <MenuIcon fontSize="large" />
+                    </IconButton>
                 </Box>
             </header>
 
+            {/* Mobile Menu Dropdown - Contains Program Status Button */}
+            {showMobileMenu && (
+                 <Box className="mobile-menu-dropdown">
+                    <Box
+                        className="program-status-mobile-item"
+                        onClick={handleProgramStatusClick}
+                        sx={{ p: 2, textAlign: 'center' }} 
+                    >
+                         {/* This button becomes visible inside the open menu */}
+                         <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                    </Box>
+                </Box>
+            )}
+
+
             {/* Content Area (Links Grid) */}
             <div className="dashboard-content">
-               
-                {/* Links Grid */}
                 <main className="dashboard-grid">
                     {cards.map((card) => (
                         <Card key={card.title} {...card} />

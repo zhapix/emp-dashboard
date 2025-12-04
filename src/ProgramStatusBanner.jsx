@@ -6,60 +6,53 @@ const ProgramStatusBanner = ({ onClick }) => {
     return (
         <Paper
             onClick={onClick}
-            // Use role="button" and tabIndex for accessibility since we are using Paper for a click action
             role="button"
             tabIndex={0}
             onKeyPress={(e) => {
-                // Allows activation via keyboard (Enter or Space)
                 if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault(); // Prevent default scroll for Spacebar
+                    e.preventDefault();
                     onClick();
                 }
             }}
-            elevation={0} // Ensures no default shadow
+            elevation={0}
             className="program-status-header-button"
             sx={{
-                // === STYLES TO ACHIEVE TRANSPARENT LOOK ===
-                p: '8px 12px', // Slightly adjusted padding for header links
+                p: '8px 12px',
                 cursor: 'pointer',
-
-                // Set background to transparent and text/icon color to white
-                backgroundColor: 'transparent', 
+                // REQUIRED: Transparent background and white color
+                backgroundColor: 'transparent !important', 
                 color: 'white', 
-                
-                // Ensure no shadows or rounded corners from Paper are visible
-                borderRadius: '4px', 
-                boxShadow: 'none', 
+                borderRadius: '4px',
                 userSelect: 'none',
-
-                // CRITICAL: Ensure no centering margins or max-width interfere
-                maxWidth: 'unset',
-                margin: '0',
-                
+                boxShadow: 'none', 
+                transition: 'background-color 0.2s',
+                '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                    boxShadow: 'none', 
+                }
             }}
         >
             <Box
                 sx={{
-                    // Ensures icon and text align horizontally
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
             >
-                {/* Icon size small, right margin 1, color inherits from Paper (white) */}
                 <ListAltIcon fontSize="small" sx={{ mr: 1, color: 'inherit' }} />
 
                 <Typography
-                    // === CRITICAL FIX: Add back typography styling ===
-                    variant="button" // Provides default uppercase and font size
+                    variant="button"
                     component="span"
                     sx={{
-                        fontWeight: 'bold', // Explicitly make the text bold
-                        color: 'inherit', // Ensure it uses the 'white' color from the parent Paper
+                        fontWeight: 'bold',
+                        color: 'inherit',
                         lineHeight: 1,
+                        // Ensures Title Case: Program Status
+                        textTransform: 'capitalize', 
                     }}
                 >
-                    program status
+                    Program Status 
                 </Typography>
             </Box>
         </Paper>

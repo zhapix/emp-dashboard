@@ -1,12 +1,12 @@
-import React from 'react';
-import { Typography, Box, Button, Avatar } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import './EmployeeProfile.css';
+import React from "react";
+import { Typography, Box, Button, Avatar } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import "./EmployeeProfile.css";
 
 // --- MOCK EMPLOYEE DATA (Complete List) ---
 const mockEmployeeData = {
     // ... (Employee data remains the same)
-    'aarthi.g@coe.zhapix.com': {
+    "aarthi.g@coe.zhapix.com": {
         name: "Aarthi g",
         empId: "1004",
         designation: "Software Developer",
@@ -15,7 +15,7 @@ const mockEmployeeData = {
         primarySkills: "Frontend Development, ReactJS, Javascript, HTML, CSS",
         secondarySkills: "Postman, Zoho Platform, Canva, Draw.io",
     },
-    'ashwathi.p@coe.zhapix.com': {
+    "ashwathi.p@coe.zhapix.com": {
         name: "Ashwathi Palaniraj",
         empId: "INT006",
         designation: "Software Testing Intern",
@@ -24,16 +24,17 @@ const mockEmployeeData = {
         primarySkills: "Software Testing, Playwright, Javascript, Cypress, Postman",
         secondarySkills: "",
     },
-    'samruthha.l@coe.zhapix.com': {
+    "samruthha.l@coe.zhapix.com": {
         name: "Samruthha Lakshmi",
         empId: "INT0017",
         designation: "Fullstack Developer Intern",
         joiningDate: "1 Aug, 2025",
         status: "Active",
-        primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
+        primarySkills:
+            "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
         secondarySkills: "GCP-Firebase, JEST",
     },
-    'deepika.j@coe.zhapix.com': {
+    "deepika.j@coe.zhapix.com": {
         name: "Deepika Jaikumar",
         empId: "INT0014",
         designation: "Software Testing Intern",
@@ -42,25 +43,27 @@ const mockEmployeeData = {
         primarySkills: "Software Testing, Playwright, Javascript, Cypress, Postman",
         secondarySkills: "",
     },
-    'yogesh.b@coe.zhapix.com': {
+    "yogesh.b@coe.zhapix.com": {
         name: "Yogesh Kumar B",
         empId: "1003",
         designation: "QA Engineer",
         joiningDate: "1 Jun, 2025",
         status: "Active",
-        primarySkills: "Software Testing, Playwright, Javascript, Cypress, Postman, Github",
+        primarySkills:
+            "Software Testing, Playwright, Javascript, Cypress, Postman, Github",
         secondarySkills: "Zoho Tools",
     },
-    'sunitha.c@coe.zhapix.com': {
+    "sunitha.c@coe.zhapix.com": {
         name: "Sunitha Chanda",
         empId: "1005",
         designation: "Technical Support Engineer",
         joiningDate: "1 Sep, 2025",
         status: "Active",
-        primarySkills: "UI/UX Design, Figma, Canva, Draw.io, CorelDraw, HTML, CSS, Javascript, React",
+        primarySkills:
+            "UI/UX Design, Figma, Canva, Draw.io, CorelDraw, HTML, CSS, Javascript, React",
         secondarySkills: "Zoho Platform",
     },
-    'vijayan.t@zhapix.com': {
+    "vijayan.t@zhapix.com": {
         name: "Vijayan Thanigaivelu",
         empId: "1001",
         designation: "N/A",
@@ -69,22 +72,24 @@ const mockEmployeeData = {
         primarySkills: "zhapix",
         secondarySkills: "",
     },
-    'ronald.k@coe.zhapix.com': {
+    "ronald.k@coe.zhapix.com": {
         name: "Ronald Kevin",
         empId: "INT0016",
         designation: "Fullstack Developer Intern",
         joiningDate: "1 Aug, 2025",
         status: "Active",
-        primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
+        primarySkills:
+            "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
         secondarySkills: "GCP-Firebase, JEST",
     },
-    'rudra.l@coe.zhapix.com': {
+    "rudra.l@coe.zhapix.com": {
         name: "Rudramoorthy",
         empId: "INT0015",
         designation: "Fullstack Developer",
         joiningDate: "1 Aug, 2025",
         status: "Active",
-        primarySkills: "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
+        primarySkills:
+            "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
         secondarySkills: "JEST",
     },
 };
@@ -92,27 +97,31 @@ const mockEmployeeData = {
 
 const ProfileRow = ({ label, value }) => {
     // Check if the trimmed value is null/undefined, an empty string, or case-insensitive 'n/a'.
-    const isEmpty = !value || value.toString().trim() === '' || value.toString().toLowerCase() === 'n/a';
-    
+    const isEmpty =
+        !value ||
+        value.toString().trim() === "" ||
+        value.toString().toLowerCase() === "n/a";
     if (isEmpty) {
         return null;
     }
 
     return (
         <div className="profile-row">
-            <div className="profile-label">{label}</div>
+            <div className="profile-label">{label}</div>           {" "}
             <div className="profile-value">
-                <Typography variant="body1" sx={{ color: 'inherit' }}>
-                    {value}
+                {" "}
+                <Typography variant="body1" sx={{ color: "inherit" }}>
+                    {value}               {" "}
                 </Typography>
+                {" "}
             </div>
+            {" "}
         </div>
     );
 };
 
 const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
-
-    const normalizedEmail = (email || '').toLowerCase();
+    const normalizedEmail = (email || "").toLowerCase();
 
     const profile = mockEmployeeData[normalizedEmail] || {
         name: "Profile Not Found",
@@ -122,69 +131,85 @@ const EmployeeProfile = ({ email, onBack, avatarUrl }) => {
         status: "N/A",
         primarySkills: "N/A",
         secondarySkills: "N/A",
-    };
+    }; // Logic for fallback text if image is missing/failing
 
-    // The avatarInitial is no longer needed for rendering the avatar, 
-    // but we can keep the logic in case it's used elsewhere later.
-    const avatarInitial = profile.name && profile.name !== "Profile Not Found"
-        ? profile.name.charAt(0).toUpperCase()
-        : 'NF';
+    const avatarInitial =
+        profile.name && profile.name !== "Profile Not Found"
+            ? profile.name.charAt(0).toUpperCase()
+            : "NF";
 
     return (
         <div className="profile-view-wrapper">
+            {" "}
             <Box sx={{ p: 0, mb: 3 }}>
+                {" "}
                 <Button
                     onClick={onBack}
                     startIcon={<ArrowBackIcon />}
-                    sx={{ color: 'rgba(241, 247, 242, 1)', textTransform: 'none' }}
+                    sx={{ color: "rgba(241, 247, 242, 1)", textTransform: "none" }}
                 >
-                    BACK TO DASHBOARD
+                    BACK TO DASHBOARD                {" "}
                 </Button>
+                {" "}
             </Box>
-
+            {" "}
             <div className="profile-view-container">
-
+                {" "}
                 <div className="profile-card-container">
                     <ProfileRow label="Name" value={profile.name} />
-
+                    {" "}
                     {profile.name !== "Profile Not Found" && (
                         <>
+                            {" "}
                             <ProfileRow label="Emp ID" value={profile.empId} />
+                            {" "}
                             <ProfileRow label="Designation" value={profile.designation} />
+                            {" "}
                             <ProfileRow label="Joining Date" value={profile.joiningDate} />
+                            {" "}
                             <ProfileRow label="Status" value={profile.status} />
-                            <ProfileRow label="Primary Skills" value={profile.primarySkills} />
-                            <ProfileRow label="Secondary Skills" value={profile.secondarySkills} />
+                            {" "}
+                            <ProfileRow
+                                label="Primary Skills"
+                                value={profile.primarySkills}
+                            />
+                            {" "}
+                            <ProfileRow
+                                label="Secondary Skills"
+                                value={profile.secondarySkills}
+                            />
+                            {" "}
                         </>
                     )}
+                    {" "}
                 </div>
-
+                {" "}
                 <div className="profile-photo-column">
+                    {" "}
                     <Avatar
                         alt={profile.name}
-                        // If avatarUrl is null/undefined or fails to load,
-                        // nothing will be shown inside the Avatar container
-                        // because we removed the child content.
-                        src={avatarUrl || ''} 
+                        src={avatarUrl || ""}
                         sx={{
                             width: 200,
                             height: 200,
-                            // White background will show if no image loads
-                            bgcolor: 'rgba(236, 241, 240, 1)', 
-                            fontSize: '3rem',
-                            border: '4px solid white',
-                            color: '#324155',
-                            '& img': {
-                                objectFit: 'cover', 
-                                width: '100%',
-                                height: '100%'
-                            }
+                            bgcolor: "rgba(236, 241, 240, 1)",
+                            fontSize: "3rem",
+                            border: "4px solid white",
+                            color: "#324155",
+                            "& img": {
+                                objectFit: "cover",
+                                width: "100%",
+                                height: "100%",
+                            },
                         }}
                     >
+                        {avatarInitial}                   {" "}
                     </Avatar>
-
+                    {" "}
                 </div>
+                {" "}
             </div>
+            {" "}
         </div>
     );
 };
