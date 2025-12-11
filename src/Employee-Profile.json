@@ -2,7 +2,7 @@
   {
     "empName": "Aarthi g",
     "empId": "1004",
-    "emailId": "aarthi.g@coe.zhapix.com",
+    "emailId": "aarthi.g@zhapix.com",
     "designation": "Software Developer",
     "joiningDate": "1/7/2025",
     "status": "Active",
@@ -14,7 +14,7 @@
       "CSS"
     ],
     "secondarySkills": ["Postman", "Zoho Platform", "Canva", "Draw.io"],
-    "profilePicture": "Aarthi g.jpg"
+    "profilePicture":"Aarthig.jpg"
   },
   {
     "empName": "Ashwathi Palaniraj",
@@ -73,7 +73,7 @@
   {
     "empName": "Yogesh Kumar B",
     "empId": "1003",
-    "emailId": "yogesh.b@coe.zhapix.com",
+    "emailId": "yogesh.b@zhapix.com",
     "designation": "QA Engineer",
     "joiningDate": "1 Jun, 2025",
     "status": "Active",
@@ -91,7 +91,7 @@
   {
     "empName": "Sunitha Chanda",
     "empId": "1005",
-    "emailId": "sunitha.c@coe.zhapix.com",
+    "emailId": "sunitha.c@zhapix.com",
     "designation": "Technical Support Engineer",
     "joiningDate": "1 Sep, 2025",
     "status": "Active",
@@ -138,7 +138,7 @@
       "Postman"
     ],
     "secondarySkills": ["GCP-Firebase", "JEST"],
-    "profilePicture": "Ronald Kevin.jpg"
+    "profilePicture": "kevin .png"
   },
   {
     "empName": "Rudramoorthy",
@@ -159,5 +159,125 @@
     ],
     "secondarySkills": ["JEST"],
     "profilePicture": "Rudramoorthy.jpg"
-  }
+  },
+  {
+  "empName": "Poorany, Priyadharshiny T",
+  "empId": "INT001",
+  "emailId": "poorany282004@gmail.com",
+  "designation": null,
+  "joiningDate": "29-Jul-2024",
+  "status": "Active",
+  "primarySkills": [
+    "HTML",
+    "CSS",
+    "Frontend Development (UI/UX, ReactJS, Web/Native/Hybrid Apps)"
+  ],
+  "profilePicture": "poorany, priyadharshiny T .jpg"
+},
+
+{
+  "empName": "VISWANATHAN, S",
+  "empId": "INT004",
+  "emailId": "viswanathans675@gmail.com",
+  "designation": null,
+  "joiningDate": "29-Jul-2024",
+  "status": "active",
+  "primarySkills": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "NodeJS",
+    "Frontend Development (UI/UX, ReactJS, Web/Native/Hybrid Apps)"
+  ],
+  "profilePicture": "viswanathans.JPG"
+} ,
+{
+  "empName": "SHYAM, A",
+  "empId": "INT003",
+  "emailId": "shyamgru7@gmail.com",
+  "designation": null,
+  "joiningDate": "24-Jul-2024",
+  "status": "active",
+  "primarySkills": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "Frontend Development (UI/UX, ReactJS, Web/Native/Hybrid Apps)"
+  ],
+  "profilePicture": "SHYAM, A.jpg"
+},
+{
+  "empName": "Jameeru, J",
+  "empId": "INT005",
+  "emailId": "Jameeru.2410@gmail.com",
+  "designation": null,
+  "joiningDate": "19-Aug-2024",
+  "status": null,
+  "primarySkills": [
+    "Frontend Development (UI/UX, ReactJS, Web/Native/Hybrid Apps)"
+  ],
+  "profilePicture": "jameeru j.jpg"
+},
+{
+  "empName": "Prathiksha, D",
+  "empId": "INT008",
+  "emailId": "prathikshapreethi3029@gmail.com",
+  "designation": null,
+  "joiningDate": "19-Aug-2024",
+  "status": null,
+  "primarySkills": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "Automation Testing (Cypress)"
+  ],
+  "profilePicture": "prathiksha d.jpg"
+},
+{
+  "empName": "Divya, Raja",
+  "empId": "INT007",
+  "emailId": "divyaraja8911@gmail.com",
+  "designation": null,
+  "joiningDate": "19-Aug-2024",
+  "status": null,
+  "primarySkills": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "Automation Testing (Cypress)"
+  ],
+  "profilePicture": ""
+},
+{
+  "empName": "Abdulkalam, K",
+  "empId": "INT0010",
+  "emailId": "abdulkalam2401@gmail.com",
+  "designation": null,
+  "joiningDate": "19-Aug-2024",
+  "status": null,
+  "primarySkills": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "Frontend Development (UI/UX, ReactJS, Web/Native/Hybrid Apps)"
+  ],
+  "profilePicture": "abdulkalam.jpg"
+},
+{
+  "empName": "MONISH, R",
+  "empId": "INT009",
+  "emailId": "MONIKRISHVI123@GMAIL.COM",
+  "designation": null,
+  "joiningDate": "19-Aug-2024",
+  "status": null,
+  "primarySkills": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "Frontend Development (UI/UX, ReactJS, Web/Native/Hybrid Apps)"
+  ],
+  "profilePicture": ""
+}
+
 ]
+

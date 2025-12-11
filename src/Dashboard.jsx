@@ -59,15 +59,16 @@ const Dashboard = () => {
     }, []);
 
     const profileInfoMapping = {
-        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg'},
-        'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B', avatarUrl: './yogesh.jpg' },
-        'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda', avatarUrl: './Sunitha.jpeg'},
+        'aarthi.g@zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg' },
+        'yogesh.b@zhapix.com': { name: 'Yogesh Kumar B', avatarUrl: './yogesh.jpg' },
+        'sunitha.c@zhapix.com': { name: 'Sunitha Chanda', avatarUrl: './Sunitha.jpeg' },
         'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu', avatarUrl: './vijayan.jpg' },
-        'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi', avatarUrl: './Samruthha.png'},
-        'ronald.k@coe.zhapix.com':{ name: 'Ronald Kevin', avatarUrl: './Kevin.png' },
-        'rudra.l@coe.zhapix.com':{ name: 'Rudramoorthy', avatarUrl:'./Rudra.png' },
-        'ashwathi.p@coe.zhapix.com':{ name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png'},
-        'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg' },
+        'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi', avatarUrl: './Samruthha.png' },
+        'ronald.k@coe.zhapix.com': { name: 'Ronald Kevin', avatarUrl: './Kevin.png' },
+        'rudra.l@coe.zhapix.com': { name: 'Rudramoorthy', avatarUrl: './Rudra.png' },
+        'ashwathi.p@coe.zhapix.com': { name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png' },
+        'deepika.j@coe.zhapix.com': { name: 'Deepika Jaikumar', avatarUrl: '' },
+        default: { name: 'default', avatarUrl: './avatar.jpg' },
     };
 
     const normalizedEmail = userEmail.toLowerCase();
@@ -129,7 +130,7 @@ const Dashboard = () => {
 
     if (selectedProfileEmail) {
         const selectedUserProfile = profileInfoMapping[selectedProfileEmail];
-        const selectedProfileAvatarUrl = selectedUserProfile?.avatarUrl || null;
+        const selectedProfileAvatarUrl = selectedUserProfile?.avatarUrl || profileInfoMapping['default'].avatarUrl;
 
         return (
             <EmployeeProfile
@@ -152,28 +153,24 @@ const Dashboard = () => {
         <div className="dashboard-container">
             <header
                 className="dashboard-header"
-                sx={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
                     alignItems: 'center',
-                    p: { xs: 1, md: 2 } 
+                    p: { xs: 1, md: 2 }
                 }}
             >
-                {/* 1. Left Side: Logo and Title */}
+                {/* 1. Left Side: Logo and Title - CLEANED for default cursor */}
                 <div
                     className="dashboard-logo"
-                    style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
                         gap: '10px',
-                        flexShrink: 1 
+                        flexShrink: 1
                     }}
-                    tabIndex={0}
-                    role="button"
-                    onClick={(e) => e.currentTarget.blur()}
-                    onKeyPress={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') e.currentTarget.blur();
-                    }}
+                    // Removed tabIndex, role="button", onClick, and onKeyPress
+                    // Cursor is now controlled purely by Dashboard.css: .dashboard-logo { cursor: default; }
                 >
                     <img alt="Zhapix Logo" className="logo-image" src="./logo.png" />
                     <Typography
@@ -193,11 +190,11 @@ const Dashboard = () => {
                         display: 'flex',
                         alignItems: 'center',
                         gap: { xs: '10px', md: '20px' },
-                        ml: 'auto' 
+                        ml: 'auto'
                     }}
                 >
                     {/* Program Status Button - Desktop Only (Hidden on mobile via CSS/sx prop) */}
-                    <Box 
+                    <Box
                         className="program-status-desktop"
                         // MUI utility for hiding on small screens
                         sx={{ display: { xs: 'none', md: 'block' } }}
@@ -211,7 +208,7 @@ const Dashboard = () => {
                             className="profile-avatar-desktop"
                             sx={{
                                 // Show on desktop (md and up)
-                                display: { xs: 'none', md: 'flex' }, 
+                                display: { xs: 'none', md: 'flex' },
                                 alignItems: 'center',
                                 gap: 1,
                                 cursor: 'pointer',
@@ -223,11 +220,10 @@ const Dashboard = () => {
                                 if (e.key === 'Enter' || e.key === ' ') handleEmailClick(e);
                             }}
                         >
-                            {/* REQUIRED FIX: Username Text (Visible on desktop) */}
                             <Typography
                                 variant="subtitle1"
                                 component="span"
-                                className="username-text" /* Class targeted by CSS for hiding on mobile */
+                                className="username-text"
                                 sx={{
                                     color: 'white',
                                     whiteSpace: 'nowrap',
@@ -235,19 +231,17 @@ const Dashboard = () => {
                             >
                                 {displayName}
                             </Typography>
-                            
-                            <Avatar 
-                                sx={{ bgcolor: '#4caf50' }} 
+
+                            <Avatar
+                                sx={{ bgcolor: '#4caf50' }}
                                 src={avatarImage || ''}
                             >
                                 {getInitials(normalizedEmail)}
                             </Avatar>
                         </Box>
                     )}
-                    
-                    {/* --- Mobile Profile Block (Avatar ONLY) --- 
-                        REQUIRED: Username is omitted here, only the avatar shows.
-                    */}
+
+                    {/* --- Mobile Profile Block (Avatar ONLY) --- */}
                     {userEmail && (
                         <Box
                             className="header-mobile-profile"
@@ -259,7 +253,7 @@ const Dashboard = () => {
                             }}
                             sx={{
                                 // Show on mobile screens (xs)
-                                display: { xs: 'flex', md: 'none' }, 
+                                display: { xs: 'flex', md: 'none' },
                                 alignItems: 'center',
                                 gap: 1,
                                 cursor: 'pointer',
@@ -282,8 +276,8 @@ const Dashboard = () => {
                         onClick={handleHamburgerClick}
                         sx={{
                             color: '#fff',
-                            display: { xs: 'block', md: 'none' }, 
-                            p: 0, ml: 1 
+                            display: { xs: 'block', md: 'none' },
+                            p: 0, ml: 1
                         }}
                     >
                         <MenuIcon fontSize="large" />
@@ -293,14 +287,14 @@ const Dashboard = () => {
 
             {/* Mobile Menu Dropdown - Contains Program Status Button */}
             {showMobileMenu && (
-                 <Box className="mobile-menu-dropdown">
+                <Box className="mobile-menu-dropdown">
                     <Box
                         className="program-status-mobile-item"
                         onClick={handleProgramStatusClick}
-                        sx={{ p: 2, textAlign: 'center' }} 
+                        sx={{ p: 2, textAlign: 'center' }}
                     >
-                         {/* This button becomes visible inside the open menu */}
-                         <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                        {/* This button becomes visible inside the open menu */}
+                        <ProgramStatusBanner onClick={handleProgramStatusClick} />
                     </Box>
                 </Box>
             )}

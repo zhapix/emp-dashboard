@@ -38,14 +38,21 @@ body.dark {
     display: flex;
     align-items: center;
     gap: 8px;
-    cursor: pointer;
+    /* --- FIX: Setting cursor to default globally --- */
+    cursor: default;
 }
 
+/* --- LOGO IMAGE FIX --- */
 .logo-image {
     height: 2rem;
+    width: auto;
+    /* Ensures aspect ratio is maintained */
     cursor: pointer;
     vertical-align: middle;
+    flex-shrink: 0;
 }
+
+/* ---------------------- */
 
 .logo-text {
     color: #eef3ee;
@@ -79,6 +86,34 @@ body.dark {
 }
 
 
+/* ================================================= */
+/* CURSOR CONTROL (Global - Applied once) */
+/* ================================================= */
+
+/* 1. Default Cursor: Set to arrow for non-interactive areas. */
+.dashboard-container,
+.profile-view-wrapper {
+    cursor: default;
+}
+
+/* 2. Text Cursor: Switch to I-beam over potential text input fields. */
+.dashboard-container input[type="text"],
+.dashboard-container input[type="search"],
+.dashboard-container textarea,
+.MuiInputBase-root input {
+    cursor: text;
+}
+
+/* 3. Pointer Cursor: Explicitly set for clickable elements to ensure UX consistency. */
+.dashboard-header button,
+.card,
+/* Removed .dashboard-logo from this list */
+.program-status-desktop,
+.program-status-mobile-item a {
+    cursor: pointer;
+}
+
+
 /* --- Grid Styling (Desktop: 2x3 Grid) --- */
 .dashboard-grid {
     display: grid;
@@ -95,7 +130,7 @@ body.dark {
     margin: 40px;
     /* High margin on desktop */
     min-height: 46px;
-    cursor: pointer;
+
 
     display: flex;
     flex-direction: row;
@@ -150,7 +185,6 @@ body.dark {
 .program-status-mobile-item {
     text-align: right;
     padding: 10px 0;
-    
 }
 
 /* ================================================= */
@@ -176,8 +210,6 @@ body.dark {
     }
 
     /* 3. SHOW: Hamburger Menu Icon */
-    /* Note: The display for hamburger is handled by the MUI sx prop in JSX,
-       but this acts as a fallback/reinforcement for the class */
     .hamburger-menu-mobile {
         display: flex !important;
         align-items: center;

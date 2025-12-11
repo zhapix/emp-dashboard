@@ -20,14 +20,13 @@ body {
 
 /* Styling for the MUI Button component */
 .profile-view-wrapper > .MuiBox-root > button { 
-    font-size: 1rem;
-    color: rgba(241, 247, 242, 0.9); 
+    font-size: 1.2rem;
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
 .profile-view-wrapper > .MuiBox-root > button:hover {
-    color: #4caf50; 
+ 
     background-color: transparent; 
 }
 
@@ -179,7 +178,7 @@ body {
     /* 2. Stack the label and value within each row (Label on top, Value below) */
     .profile-row {
         flex-direction: column;
-        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+       border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
     }
 
     /* Reset width to 100% for stacked items and remove left border */
@@ -221,4 +220,25 @@ body {
     .profile-row:last-child .profile-label {
         border-bottom-left-radius: 0 !important;
     }
+}
+/* 1. Global/Default Cursor */
+/* Apply the default arrow cursor to the entire profile view area */
+.profile-view-wrapper {
+    cursor: default;
+}
+
+/* 2. Text Input Cursor */
+/* Switch the cursor to the text input style (I-beam) over all input elements */
+/* This ensures that when the user hovers over a text field, the cursor changes. */
+.profile-view-wrapper input[type="text"],
+.profile-view-wrapper input[type="email"],
+.profile-view-wrapper textarea,
+.profile-view-wrapper .MuiInputBase-root input {
+    cursor: text;
+}
+
+/* Optional: Pointers for clickable elements */
+.profile-view-wrapper button,
+.profile-view-wrapper a {
+    cursor: pointer;
 }
