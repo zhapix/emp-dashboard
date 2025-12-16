@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
     Typography,
     Box,
     Avatar,
+    IconButton,
 } from '@mui/material';
 import {
     ChatBubbleOutline,
@@ -11,6 +12,7 @@ import {
     PeopleOutline,
     MenuBookOutlined,
     GitHub,
+    Menu as MenuIcon,
 } from '@mui/icons-material';
 
 import './Dashboard.css';
@@ -45,32 +47,81 @@ const Card = ({ title, link, icon }) => {
     );
 };
 
+// --- MAPPING DATA FOR DASHBOARD (Keys are Emails, includes Emp ID) ---
+// Note: This mapping structure (keyed by email) must remain because we use it to construct the Emp ID map.
+const profileInfoMappingByEmail = {
+    'aarthi.g@zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg', empId: '1004' },
+    'yogesh.b@zhapix.com': { name: 'Yogesh Kumar B', avatarUrl: './yogesh.jpg', empId: '1003' },
+    'sunitha.c@zhapix.com': { name: 'Sunitha Chanda', avatarUrl: './Sunitha.jpeg', empId: '1005' },
+    'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu', avatarUrl: './vijayan.jpg', empId: '1001' },
+    'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi', avatarUrl: './Samruthha.png', empId: 'INT0017' },
+    'ronald.k@coe.zhapix.com': { name: 'Ronald Kevin', avatarUrl: './Kevin.png', empId: 'INT0016' },
+    'rudra.l@coe.zhapix.com': { name: 'Rudramoorthy', avatarUrl: './Rudra.png', empId: 'INT0015' },
+    'ashwathi.p@coe.zhapix.com': { name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png', empId: 'INT006' },
+    'deepika.j@coe.zhapix.com': { name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg',empId: 'INT0014'},
+    default: { name: 'Guest User', avatarUrl: './avatar.jpg', empId: null },
+};
+
+
 const Dashboard = () => {
-    const [userEmail, setUserEmail] = useState('');
-    const [selectedProfileEmail, setSelectedProfileEmail] = useState(null);
+    // Stores the ID (now expecting Emp ID from URL)
+    const [userId, setUserId] = useState(''); 
+    
+    // State tracks the selected Emp ID
+    const [selectedProfileEmpId, setSelectedProfileEmpId] = useState(null); 
+    
     const [showProgramStatusPage, setShowProgramStatusPage] = useState(false);
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+
+    // Create a map keyed by Emp ID for quick lookup 
+    const profilesByEmpId = useMemo(() => {
+        const map = {};
+        Object.values(profileInfoMappingByEmail).forEach(profile => {
+            if (profile.empId) {
+                // Ensure Emp ID keys are consistently capitalized if necessary (or just store them as is)
+                map[profile.empId] = profile;
+            }
+        });
+        return map;
+    }, []);
+
 
     useEffect(() => {
         const searchParamVals = new URLSearchParams(window.location.search);
-        setUserEmail(searchParamVals.get('userEmail') || '');
+        
+        // **STRICT CHANGE:** Only check for the 'userid' parameter
+        const idFromUrl = searchParamVals.get('userid');
+        
+        setUserId(idFromUrl || '');
     }, []);
 
-    const profileInfoMapping = {
-        'aarthi.g@coe.zhapix.com': { name: 'Aarthi Gopal', avatarUrl: './Aarthig.jpeg'},
-        'yogesh.b@coe.zhapix.com': { name: 'Yogesh Kumar B', avatarUrl: './yogesh.jpg' },
-        'sunitha.c@coe.zhapix.com': { name: 'Sunitha Chanda', avatarUrl: './Sunitha.jpeg'},
-        'vijayan.t@zhapix.com': { name: 'Vijayan Thanigaivelu', avatarUrl: './vijayan.jpg' },
-        'samruthha.l@coe.zhapix.com': { name: 'Samruthha Lakshmi', avatarUrl: './Samruthha.png'},
-        'ronald.k@coe.zhapix.com':{ name: 'Ronald Kevin', avatarUrl: './Kevin.png' },
-        'rudra.l@coe.zhapix.com':{ name: 'Rudramoorthy', avatarUrl:'./Rudra.png' },
-        'ashwathi.p@coe.zhapix.com':{ name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png'},
-        'deepika.j@coe.zhapix.com':{ name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg' },
-    };
 
-    const normalizedEmail = userEmail.toLowerCase();
-    const currentUserProfile = profileInfoMapping[normalizedEmail];
-    const displayName = currentUserProfile?.name || userEmail;
+    // Determine the profile based on the Emp ID (userId state)
+    const currentUserProfile = useMemo(() => {
+        if (!userId) {
+            return profileInfoMappingByEmail.default;
+        }
+
+        const normalizedId = userId.toUpperCase(); // Assuming Emp IDs might be case-sensitive or uppercase
+
+        // Try lookup by Emp ID
+        let profile = profilesByEmpId[normalizedId];
+        
+        // Fallback check: If the user mistakenly passed an email under 'userid', try to look it up.
+        // This is a safety measure, but the primary lookup is by Emp ID.
+        if (!profile) {
+            profile = profileInfoMappingByEmail[userId.toLowerCase()];
+        }
+        
+        return profile || profileInfoMappingByEmail.default;
+    }, [userId, profilesByEmpId]); 
+
+    
+    const displayName = currentUserProfile?.name || userId; 
     const avatarImage = currentUserProfile?.avatarUrl;
+    const currentEmpId = currentUserProfile?.empId; 
+
 
     const cards = [
         { title: 'Chat', link: 'https://cliq.zoho.in/', icon: <ChatBubbleOutline fontSize="large" /> },
@@ -81,22 +132,35 @@ const Dashboard = () => {
         { title: 'Learn', link: 'https://irp.zhapix.com', icon: <MenuBookOutlined fontSize="large" /> },
     ];
 
-    const getInitials = (email) => {
-        if (!email) return '';
+    const getInitials = (id) => {
+        const profile = currentUserProfile;
 
-        const nameToUse = currentUserProfile?.name;
-        if (nameToUse) {
-            return nameToUse.charAt(0).toUpperCase();
+        // 1. PREFERENCE: Use Emp ID's first letter
+        if (profile.empId) {
+            return profile.empId.charAt(0).toUpperCase(); 
         }
 
-        return email.charAt(0).toUpperCase();
+        // 2. FALLBACK: Use the Name initials 
+        const nameToUse = profile.name || id; 
+        
+        if (nameToUse) {
+            const names = nameToUse.split(' ');
+            if (names.length > 1) {
+                return names[0].charAt(0).toUpperCase() + names[names.length - 1].charAt(0).toUpperCase();
+            }
+            return names[0].charAt(0).toUpperCase();
+        }
+
+        return id ? id.charAt(0).toUpperCase() : '';
     };
 
-    const handleEmailClick = (event) => {
-        // Close other views before toggling profile view
+
+    const handleProfileClick = (event) => {
         setShowProgramStatusPage(false);
-        // Toggles the EmployeeProfile view
-        setSelectedProfileEmail(prevEmail => prevEmail ? null : normalizedEmail);
+        setShowMobileMenu(false);
+        
+        // Toggle the selected Emp ID (profile opens only if a valid Emp ID was found)
+        setSelectedProfileEmpId(prevId => (prevId ? null : currentEmpId)); 
 
         if (event && event.currentTarget) {
             event.currentTarget.blur();
@@ -104,9 +168,8 @@ const Dashboard = () => {
     };
 
     const handleProgramStatusClick = () => {
-        // Close profile view
-        setSelectedProfileEmail(null);
-        // Open Program Status view
+        setSelectedProfileEmpId(null); 
+        setShowMobileMenu(false);
         setShowProgramStatusPage(true);
     };
 
@@ -114,17 +177,21 @@ const Dashboard = () => {
         setShowProgramStatusPage(false);
     };
 
+    const handleHamburgerClick = () => {
+        setSelectedProfileEmpId(null); 
+        setShowProgramStatusPage(false);
+        setShowMobileMenu(prev => !prev);
+    };
+
     // --- Conditional Rendering for Profile and Status Pages ---
 
-    if (selectedProfileEmail) {
-        const selectedUserProfile = profileInfoMapping[selectedProfileEmail];
-        const selectedProfileAvatarUrl = selectedUserProfile?.avatarUrl || null;
-
+    if (selectedProfileEmpId) { 
         return (
             <EmployeeProfile
-                email={selectedProfileEmail}
-                onBack={() => setSelectedProfileEmail(null)}
-                avatarUrl={selectedProfileAvatarUrl}
+                // Pass the Emp ID as the 'id' prop
+                id={selectedProfileEmpId} 
+                onBack={() => setSelectedProfileEmpId(null)} 
+                avatarUrl={avatarImage} 
             />
         );
     }
@@ -141,22 +208,21 @@ const Dashboard = () => {
         <div className="dashboard-container">
             <header
                 className="dashboard-header"
-                // Use flex and space-between to push content to the left and right edges
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    p: { xs: 1, md: 2 }
+                }}
             >
                 {/* 1. Left Side: Logo and Title */}
                 <div
                     className="dashboard-logo"
-                    style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
-                    tabIndex={0}
-                    role="button"
-                    onClick={(e) => {
-                        if (e.currentTarget) e.currentTarget.blur();
-                    }}
-                    onKeyPress={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            if (e.currentTarget) e.currentTarget.blur();
-                        }
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        flexShrink: 1
                     }}
                 >
                     <img alt="Zhapix Logo" className="logo-image" src="./logo.png" />
@@ -164,65 +230,128 @@ const Dashboard = () => {
                         variant="h5"
                         component="h1"
                         className="dashboard-title"
-                        sx={{ userSelect: 'none' }}
+                        sx={{ userSelect: 'none', whiteSpace: 'nowrap' }}
                     >
                         Dashboard
                     </Typography>
                 </div>
 
-                {/* 2. Right Side: Program Status and User Profile */}
+                {/* 2. Right Side: Actions (Desktop/Mobile) */}
                 <Box
                     className="header-actions"
-                    // Group the button and avatar, and align them
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '20px', // Space between the button and the profile
+                        gap: { xs: '10px', md: '20px' },
+                        ml: 'auto'
                     }}
                 >
-                    {/* Program Status Button */}
-                    <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                    {/* Program Status Button - Desktop Only */}
+                    <Box
+                        className="program-status-desktop"
+                        sx={{ display: { xs: 'none', md: 'block' } }}
+                    >
+                        <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                    </Box>
 
-                    {/* User Profile/Avatar Section */}
-                    {userEmail && (
+                    {/* User Profile/Avatar Section - Desktop ONLY (Username + Avatar) */}
+                    {userId && (
                         <Box
+                            className="profile-avatar-desktop"
                             sx={{
-                                display: 'flex',
+                                display: { xs: 'none', md: 'flex' },
                                 alignItems: 'center',
                                 gap: 1,
                                 cursor: 'pointer',
                             }}
-                            onClick={handleEmailClick}
+                            onClick={handleProfileClick}
                             role="button"
                             tabIndex={0}
                             onKeyPress={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') handleEmailClick(e);
+                                if (e.key === 'Enter' || e.key === ' ') handleProfileClick(e);
                             }}
                         >
-                            <Avatar
-                                sx={{ bgcolor: '#4caf50' }}
-                                src={avatarImage || ''}
-                            >
-                                {/* Fallback for Avatar is good practice */}
-                                {getInitials(normalizedEmail)}
-                            </Avatar>
                             <Typography
+                                variant="subtitle1"
+                                component="span"
+                                className="username-text"
                                 sx={{
-                                    color: 'rgba(245, 245,245)',
-                                    userSelect: 'none',
+                                    color: 'white',
+                                    whiteSpace: 'nowrap',
                                 }}
                             >
                                 {displayName}
                             </Typography>
+
+                            <Avatar
+                                sx={{ bgcolor: '#4caf50' }}
+                                src={avatarImage || ''}
+                            >
+                                {getInitials(userId)} 
+                            </Avatar>
                         </Box>
                     )}
+
+                    {/* --- Mobile Profile Block (Avatar ONLY) --- */}
+                    {userId && (
+                        <Box
+                            className="header-mobile-profile"
+                            onClick={handleProfileClick}
+                            role="button"
+                            tabIndex={0}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') handleProfileClick(e);
+                            }}
+                            sx={{
+                                display: { xs: 'flex', md: 'none' },
+                                alignItems: 'center',
+                                gap: 1,
+                                cursor: 'pointer',
+                            }}
+                        >
+                            <Avatar
+                                src={avatarImage || ''}
+                            >
+                                {getInitials(userId)} 
+                            </Avatar>
+                        </Box>
+                    )}
+                    {/* --- End Mobile Profile Block --- */}
+
+
+                    {/* Hamburger Menu Icon - Mobile Only */}
+                    <IconButton
+                        className="hamburger-menu-mobile"
+                        aria-label="menu"
+                        onClick={handleHamburgerClick}
+                        sx={{
+                            color: '#fff',
+                            display: { xs: 'block', md: 'none' },
+                            p: 0, ml: 1
+                        }}
+                    >
+                        <MenuIcon fontSize="large" />
+                    </IconButton>
                 </Box>
             </header>
 
+            {/* Mobile Menu Dropdown - Contains Program Status Button */}
+            {showMobileMenu && (
+                <Box className="mobile-menu-dropdown">
+                    <Box
+                        className="program-status-mobile-item"
+                        onClick={handleProgramStatusClick}
+                        sx={{ p: 2, textAlign: 'center' }}
+                    >
+                        {/* This button becomes visible inside the open menu */}
+                        <ProgramStatusBanner onClick={handleProgramStatusClick} />
+                    </Box>
+                </Box>
+            )}
+
+
             {/* Content Area (Links Grid) */}
             <div className="dashboard-content">
-               
-                {/* Links Grid */}
                 <main className="dashboard-grid">
                     {cards.map((card) => (
                         <Card key={card.title} {...card} />
