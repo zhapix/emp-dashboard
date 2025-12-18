@@ -14,7 +14,6 @@ import {
     GitHub,
     Menu as MenuIcon,
 } from '@mui/icons-material';
-
 import './Dashboard.css';
 import EmployeeProfile from './EmployeeProfile';
 import './EmployeeProfile.css';
@@ -58,8 +57,9 @@ const profileInfoMappingByEmail = {
     'ronald.k@coe.zhapix.com': { name: 'Ronald Kevin', avatarUrl: './Kevin.png', empId: 'INT0016' },
     'rudra.l@coe.zhapix.com': { name: 'Rudramoorthy', avatarUrl: './Rudra.png', empId: 'INT0015' },
     'ashwathi.p@coe.zhapix.com': { name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png', empId: 'INT006' },
-    'deepika.j@coe.zhapix.com': { name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg',empId: 'INT0014'},
-    default: { name: 'Guest User', avatarUrl: './avatar.jpg', empId: null },
+    'deepika.j@coe.zhapix.com': { name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg', empId: 'INT0014' },
+    'testing@zhapix.com': { name: 'TestingMale', avatarUrl: './avatar.jpg', empId: 'TES001' },
+    'testing@2zhapix.com': { name: 'Testingfemale', avatarUrl: './female-avatar1-icon.png', empId: 'TES002' },
 };
 
 
