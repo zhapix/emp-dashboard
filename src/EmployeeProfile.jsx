@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Box, Button, Avatar } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./EmployeeProfile.css"; // Ensure this file contains the new CSS rules
@@ -101,6 +101,28 @@ const mockEmployeeData = {
             "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
         secondarySkills: "JEST",
     },
+    "TES001": {
+        name: "TestingMale",
+        empId: "TES001",
+        designation: "Fullstack Developer",
+        joiningDate: "1 Aug, 2025",
+        lastDate: "NA",
+        status: "Active",
+        primarySkills:
+            "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
+        secondarySkills: "JEST",
+    },
+    "TES002": {
+        name: "Testingfemale",
+        empId: "TES002",
+        designation: "Fullstack Developer",
+        joiningDate: "1 Aug, 2025",
+        lastDate: "NA",
+        status: "Active",
+        primarySkills:
+            "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
+        secondarySkills: "JEST",
+    }
 };
 // --- END MOCK EMPLOYEE DATA ---
 
@@ -136,10 +158,8 @@ const ProfileRow = ({ label, value }) => {
 // CHANGE: The 'id' prop is now explicitly the Emp ID.
 const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
     // id is now the Emp ID (e.g., '1004', 'INT006')
-    const empId = (id || "").toUpperCase(); 
-
-    // CHANGE: Look up profile data using the Emp ID
-    const profile = mockEmployeeData[empId] || {
+    const empId = (id || "").toUpperCase();
+    const [profile, setProfile] = useState({
         name: "Profile Not Found",
         empId: "N/A",
         designation: "N/A",
@@ -148,7 +168,32 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
         status: "N/A",
         primarySkills: "N/A",
         secondarySkills: "N/A",
-    }; 
+    });
+
+
+    useEffect(() => {
+        console.log("ëntering..")
+        /*
+        fetch(
+            "https://www.zohoapis.in/creator/custom/zhapix/internList?publickey=hr23DAOTBzVqm608CkT9E4jR5"
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                const empData = data.result; // Assuming the root key is "users"
+                console.log("empData::", empData);
+                // if (empData) {
+                //     setProfile(empData[empId]);
+                //     console.log(data);
+                // }
+            })
+            .catch((error) => console.error("Error:", error));
+            */
+        setProfile(mockEmployeeData[empId]);
+
+    }, []);
+
+    // CHANGE: Look up profile data using the Emp ID
+    // const profile = mockEmployeeData[empId] ||
 
     const avatarInitial =
         profile.name && profile.name !== "Profile Not Found"
@@ -157,14 +202,14 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
 
     return (
         <div className="profile-view-wrapper">
-            
+
             {/* --- Back Button (Text only, large font) --- */}
             <Box sx={{ mb: 1, p: 0 }}>
                 <Button
                     onClick={onBack}
                     variant="text" // Ensure no background color
                     startIcon={<ArrowBackIcon sx={{ fontSize: '1.2rem' }} />} // Increase icon size
-                    sx={{ 
+                    sx={{
                         textTransform: "none",
                         color: "white",
                         fontSize: '1.2rem', // Increase text size
@@ -180,7 +225,7 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
                 sx={{
                     width: '100%',
                     textAlign: 'center', // Centers the text
-                    mb: 3, 
+                    mb: 3,
                     p: 0,
                     color: 'white',
                 }}
@@ -196,10 +241,10 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
 
             {/* --- Profile Content --- */}
             <div className="profile-view-container">
-                
+
                 <div className="profile-card-container">
                     <ProfileRow label="Name" value={profile.name} />
-                    
+
                     {profile.name !== "Profile Not Found" && (
                         <>
                             <ProfileRow label="Emp ID" value={profile.empId} />
@@ -246,4 +291,4 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
     );
 };
 
-export default EmployeeProfile ;
+export default EmployeeProfile;
