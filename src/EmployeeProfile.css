@@ -1,244 +1,211 @@
 /* --- GLOBAL STYLING --- */
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #2f3b47; 
-    margin: 0;
-    padding: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #2f3b47;
+  margin: 0;
+  padding: 0;
 }
 
 /* --- PROFILE VIEW WRAPPER & BACK BUTTON --- */
 .profile-view-wrapper {
-    max-width: 900px;
-    margin: 80px auto;
-    padding: 24px;
+  max-width: 900px;
+  /* ISSUE FIXED: Reduced margin-top from 80px to 20px to match Dashboard alignment */
+  margin: 20px auto;
+  padding: 24px;
+  /* ISSUE FIXED: Ensures container anchors to the top instead of centering */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .profile-back-link {
-    margin-bottom: 16px; 
-    padding: 0;
+  margin-bottom: 16px;
+  padding: 0;
 }
 
 /* Styling for the MUI Button component */
-.profile-view-wrapper > .MuiBox-root > button { 
-    font-size: 1.2rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
+.profile-view-wrapper > .MuiBox-root > button {
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .profile-view-wrapper > .MuiBox-root > button:hover {
- 
-    background-color: transparent; 
+  background-color: transparent;
 }
 
 /* --- DESKTOP/DEFAULT LAYOUT (Side-by-Side) --- */
 .profile-view-container {
-    display: flex;
-    align-items: stretch;
-    gap: 20px;
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
 }
 
 /* 1. Main Details Table (Left Section) */
 .profile-card-container {
-    min-width: 400px;
-    flex-basis: 60%; 
-    flex-grow: 1;
-    overflow: hidden; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    background-color: #36495b; /* Label background */
-    border: 1px solid #4caf50;
+  min-width: 400px;
+  flex-basis: 60%;
+  flex-grow: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: #36495b;
+  border: 1px solid #4caf50;
 }
 
 /* 2. Profile Photo Column (Right Section) */
 .profile-photo-column {
-    flex-basis: 40%;
-    flex-grow: 1;
-    background-color: #36495b;
-    border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: white;
+  flex-basis: 40%;
+  flex-grow: 1;
+  background-color: #36495b;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
 }
 
-/* Avatar Image FIXES: Ensure image covers the avatar circle correctly */
+/* ISSUE FIXED: Ensure full face visibility (head and chin) without cropping */
+.profile-photo-column .MuiAvatar-root {
+  background-color: #2f3e4e !important; /* Matches UI background for empty spaces */
+  border: none !important;
+}
+
 .profile-photo-column .MuiAvatar-root img {
-    /* Use original property for the MUI Avatar's image element */
-    object-fit: cover !important; 
-    width: 100% !important; /* Ensure the image fills the avatar container */
-    height: 100% !important;
-    transform: none; /* Removed unnecessary scale/transform */
-    transition: none;
+  /* ISSUE FIXED: Changed from 'cover' to 'contain' to prevent cutting off head/chin */
+
+  height: 100% !important;
+  object-position: center !important;
+  transform: none;
+  transition: none;
 }
 
 /* Table Rows */
 .profile-row {
-    display: flex; 
-    align-items: stretch;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .profile-row:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 /* Shared Padding/Box-Sizing */
 .profile-label,
 .profile-value {
-    padding: 12px 16px;
-    font-size: 16px;
-    line-height: 1.5;
-    box-sizing: border-box;
+  padding: 12px 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  box-sizing: border-box;
 }
 
 .profile-label {
-    width: 40%;
-    background-color: #36495b;
-    font-weight: bold;
-    color: white;
+  width: 40%;
+  background-color: #36495b;
+  font-weight: bold;
+  color: white;
 }
 
 /* Right Column (Darker Blue Value) */
 .profile-value {
-    width: 60%;
-    background-color: #2f3e4e; /* Value background - slightly darker */
-    color: #ffffff;
-    word-break: break-word;
-    border-left: 1px solid #48617b;
+  width: 60%;
+  background-color: #2f3e4e;
+  color: #ffffff;
+  word-break: break-word;
+  border-left: 1px solid #48617b;
 }
-
 
 /* Desktop/Default Radius Control */
 .profile-row:first-child .profile-label {
-    border-top-left-radius: 8px;
+  border-top-left-radius: 8px;
 }
-
 .profile-row:first-child .profile-value {
-    border-top-right-radius: 8px;
+  border-top-right-radius: 8px;
 }
-
 .profile-row:last-child .profile-label {
-    border-bottom-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
-
 .profile-row:last-child .profile-value {
-    border-bottom-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
-
-/* ================================================================== */
-/* -------------------- TABLET LANDSCAPE (769px to 1024px) -------------------- */
-/* ================================================================== */
+/* --- TABLET LANDSCAPE --- */
 @media (max-width: 1024px) and (min-width: 769px) {
-    .profile-view-wrapper {
-        max-width: 740px; 
-        padding: 16px;
-    }
-    
-    .profile-card-container {
-        min-width: 300px; 
-    }
+  .profile-view-wrapper {
+    max-width: 740px;
+    padding: 16px;
+  }
+  .profile-card-container {
+    min-width: 300px;
+  }
 }
 
-
-/* ================================================================== */
-/* -------------------- MOBILE/TABLET PORTRAIT (MAX 768px) -------------------- */
-/* Stacks main columns AND label/value rows. */
-/* ================================================================== */
+/* --- MOBILE/TABLET PORTRAIT --- */
 @media (max-width: 768px) {
-    .profile-view-wrapper {
-        margin: 20px auto;
-        padding: 10px;
-    }
+  .profile-view-wrapper {
+    margin: 10px auto; /* Standardized for mobile alignment */
+    padding: 10px;
+  }
 
-    /* 1. Stack the main columns (Table on top, Photo below) */
-    .profile-view-container {
-        flex-direction: column;
-    }
+  .profile-view-container {
+    flex-direction: column;
+  }
 
-    .profile-photo-column {
-        min-height: auto;
-        order: 2; 
-        margin-top: 20px;
-        width: 100%;
-        padding: 30px 20px;
-    }
+  .profile-photo-column {
+    min-height: auto;
+    order: 2;
+    margin-top: 20px;
+    width: 100%;
+    padding: 30px 20px;
+  }
 
-    .profile-card-container {
-        order: 1; 
-        min-width: unset;
-        width: 100%;
-        /* No overall radius here; let rows manage it */
-    }
-    
-    /* 2. Stack the label and value within each row (Label on top, Value below) */
-    .profile-row {
-        flex-direction: column;
-       border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-    }
+  .profile-card-container {
+    order: 1;
+    min-width: unset;
+    width: 100%;
+  }
 
-    /* Reset width to 100% for stacked items and remove left border */
-    .profile-label,
-    .profile-value {
-        width: 100%;
-        border-left: none; 
-        padding: 10px 16px; 
-        border-radius: 0 !important; /* Crucial: Reset individual row corners */
-    }
+  .profile-row {
+    flex-direction: column;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  }
 
-    .profile-label {
-        border-bottom: 1px solid #48617b;
-    }
+  .profile-label,
+  .profile-value {
+    width: 100%;
+    border-left: none;
+    padding: 10px 16px;
+    border-radius: 0 !important;
+  }
 
-    /* Apply Radius to the TOP of the entire stacked table block */
-    .profile-row:first-child .profile-label {
-        border-top-left-radius: 8px !important;
-        border-top-right-radius: 8px !important;
-    }
-    
-    /* Ensure the second element in the first row is flat */
-    .profile-row:first-child .profile-value {
-        border-top-right-radius: 0 !important;
-        border-top-left-radius: 0 !important; 
-    }
+  .profile-label {
+    border-bottom: 1px solid #48617b;
+  }
 
-    /* Apply Radius to the BOTTOM of the entire stacked table block */
-    .profile-row:last-child {
-        border-bottom: none;
-    }
-    
-    .profile-row:last-child .profile-value {
-        border-bottom-left-radius: 8px !important;
-        border-bottom-right-radius: 8px !important;
-    }
+  .profile-row:first-child .profile-label {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+  }
 
-    /* Ensure the first element in the last row is flat (if the list has multiple rows) */
-    .profile-row:last-child .profile-label {
-        border-bottom-left-radius: 0 !important;
-    }
+  .profile-row:last-child .profile-value {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
 }
-/* 1. Global/Default Cursor */
-/* Apply the default arrow cursor to the entire profile view area */
+
+/* Cursors */
 .profile-view-wrapper {
-    cursor: default;
+  cursor: default;
 }
-
-/* 2. Text Input Cursor */
-/* Switch the cursor to the text input style (I-beam) over all input elements */
-/* This ensures that when the user hovers over a text field, the cursor changes. */
-.profile-view-wrapper input[type="text"],
-.profile-view-wrapper input[type="email"],
-.profile-view-wrapper textarea,
-.profile-view-wrapper .MuiInputBase-root input {
-    cursor: text;
+.profile-view-wrapper input {
+  cursor: text;
 }
-
-/* Optional: Pointers for clickable elements */
 .profile-view-wrapper button,
 .profile-view-wrapper a {
-    cursor: pointer;
+  cursor: pointer;
 }
