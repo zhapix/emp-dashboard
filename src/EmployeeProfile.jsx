@@ -203,21 +203,7 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
     return (
         <div className="profile-view-wrapper">
 
-            {/* --- Back Button (Text only, large font) --- */}
-            <Box sx={{ mb: 1, p: 0 }}>
-                <Button
-                    onClick={onBack}
-                    variant="text" // Ensure no background color
-                    startIcon={<ArrowBackIcon sx={{ fontSize: '1.2rem' }} />} // Increase icon size
-                    sx={{
-                        textTransform: "none",
-                        color: "white",
-                        fontSize: '1.2rem', // Increase text size
-                    }}
-                >
-                    Back to Dashboard
-                </Button>
-            </Box>
+
 
             {/* --- Employee Profile Heading (Center Aligned) --- */}
             <Box
@@ -235,7 +221,7 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
                     component="h1"
                     sx={{ fontWeight: 'bold' }}
                 >
-                    Employee Profile
+                    Profile Details
                 </Typography>
             </Box>
 
@@ -268,13 +254,14 @@ const EmployeeProfile = ({ id, onBack, avatarUrl }) => {
                 <div className="profile-photo-column">
                     <Avatar
                         alt={profile.name}
+                        variant="square"
                         src={avatarUrl || ""}
                         sx={{
                             width: 200,
                             height: 200,
                             bgcolor: "rgba(236, 241, 240, 1)",
                             fontSize: "3rem",
-                            border: "4px solid white",
+                            border: "none",
                             color: "#324155",
                             "& img": {
                                 objectFit: "cover",
