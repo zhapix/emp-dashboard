@@ -183,7 +183,7 @@ const Dashboard = () => {
                         { title: 'Email', link: 'https://mail.zoho.in/zm/#mail/folder/inbox', icon: <EmailOutlined fontSize="large" /> },
                         { title: 'Drive', link: 'https://workdrive.zoho.in/', icon: <CloudUploadOutlined fontSize="large" /> },
                         { title: 'GitHub', link: 'https://github.com/zhapix-coe/', icon: <GitHub fontSize="large" /> },
-                        { title: 'Project', link: 'https://projects.zhapix.com/', icon: <AssignmentOutlined fontSize="large" /> }, // Icon Changed
+                        { title: 'Projects', link: 'https://projects.zhapix.com/', icon: <AssignmentOutlined fontSize="large" /> }, // Icon Changed
                         { title: 'Learn', link: 'https://irp.zhapix.com', icon: <MenuBookOutlined fontSize="large" /> },
                     ].map((card) => (
                         <Card key={card.title} {...card} />
