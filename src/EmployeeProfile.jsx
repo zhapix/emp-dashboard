@@ -122,8 +122,32 @@ const mockEmployeeData = {
         primarySkills:
             "Web Development, Javascript, ReactJS, NodeJS, MongoDB, HTML, CSS, Postman",
         secondarySkills: "JEST",
+    },
+    "INT0018": {
+        name: "Manobhamini",
+        empId: "INT0018",
+        designation: "Intern",
+        joiningDate: "01 Jan, 2026",
+        lastDate: "NA",
+        status: "Active",
+        primarySkills: "javascript",
+        secondarySkills: "N/A",
+        
+    },
+    "INT0019": {
+        name: "Monika S",
+        empId: "INT0019",
+        designation: "Intern",
+        joiningDate: "01 Jan, 2026",
+        lastDate: "NA",
+        status: "Active",
+        primarySkills: "Javascript",
+        secondarySkills: "N/A",
+      
     }
 };
+ 
+
 // --- END MOCK EMPLOYEE DATA ---
 
 /**

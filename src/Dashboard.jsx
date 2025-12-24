@@ -62,6 +62,8 @@ const profileInfoMappingByEmail = {
     'rudra.l@coe.zhapix.com': { name: 'Rudramoorthy', avatarUrl: './Rudra.png', empId: 'INT0015' },
     'ashwathi.p@coe.zhapix.com': { name: 'Ashwathi Palaniraj', avatarUrl: './Ashwathi.png', empId: 'INT006' },
     'deepika.j@coe.zhapix.com': { name: 'Deepika Jaikumar', avatarUrl: './Deepika.jpg', empId: 'INT0014' },
+    'manobhamini.a@coe.zhapix.com': { name: 'Manobhamini', avatarUrl: './MAno.jpeg', empId: 'INT0018' },
+     'monika.s@coe.zhapix.com': { name: 'Monika S', avatarUrl: './Monika.jpg', empId: 'INT0019' },
     'testing@zhapix.com': { name: 'TestingMale', avatarUrl: './malegrayscale.jpg', empId: 'TES001' },
     'testing@2zhapix.com': { name: 'Testingfemale', avatarUrl: './female grayscale.png', empId: 'TES002' },
     'default': { name: 'Guest', avatarUrl: '', empId: null }
