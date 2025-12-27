@@ -1,0 +1,173 @@
+/* ============================
+   RESET
+============================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ============================
+   BODY
+============================ */
+html, body {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(135deg, #081c36, #031025);
+    color: #ffffff;
+}
+
+/* ============================
+   MAIN CONTAINER
+============================ */
+.dashboard-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================
+   HEADER
+============================ */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.dashboard-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-image {
+    width: 42px;
+}
+
+.dashboard-logo h1 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* ============================
+   HEADER RIGHT
+============================ */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.program-status {
+    border: 1px solid #2dd4bf;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+/* ============================
+   GRID (FIXED & CENTERED)
+============================ */
+.dashboard-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    gap: 60px;
+
+    justify-content: center;
+    align-content: center;
+
+}
+
+/* ============================
+   CARDS
+============================ */
+.card {
+    height: 170px;
+    border: 1.5px solid #2dd4bf;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #0b2548, #081c36);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    font-size: 2.5rem;
+    font-weight: 200;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    background: rgba(45, 212, 191, 0.15);
+    transform: translateY(-6px);
+}
+
+/* ============================
+   FOOTER
+============================ */
+.dashboard-footer {
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #2dd4bf;
+    background: #081c36;
+}
+
+/* ============================
+   TABLET (≤ 900px)
+============================ */
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 260px);
+        gap: 40px;
+    }
+
+    .card {
+        height: 160px;
+        font-size: 2.2rem;
+    }
+}
+
+/* ============================
+   MOBILE (≤ 600px)
+============================ */
+@media (max-width: 600px) {
+    .dashboard-header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .card {
+        width: 90%;
+        max-width: 300px;
+        height: 150px;
+        font-size: 2rem;
+    }
+}

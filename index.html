@@ -1,15 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="./vite.svg" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Employee Dashboard</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <!--  Changed to relative path -->
-    <script type="module" src="./src/main.jsx"></script>
-  </body>
-</html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
 
+<div class="dashboard">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Dashboard</span>
+        </div>
+
+        <div class="user">
+            <span>Sunitha</span>
+            <img src="https://i.pravatar.cc/40" alt="profile">
+        </div>
+    </header>
+
+    <h3 class="status">≡ Program Status</h3>
+
+    <!-- Cards -->
+    <div class="card-container">
+        <div class="card"><i class="fa-solid fa-comments"></i><p>Chat</p></div>
+        <div class="card"><i class="fa-solid fa-hard-drive"></i><p>Drive</p></div>
+        <div class="card"><i class="fa-solid fa-envelope"></i><p>Email</p></div>
+        <div class="card"><i class="fa-brands fa-github"></i><p>Github</p></div>
+        <div class="card"><i class="fa-solid fa-book"></i><p>Learn</p></div>
+        <div class="card"><i class="fa-solid fa-check"></i><p>Projects</p></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Copyright © 2025 Zhapix™ | All Rights Reserved
+    </footer>
+</div>
+
+</body>
+</html>
